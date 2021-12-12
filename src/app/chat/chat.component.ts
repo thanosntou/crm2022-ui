@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ChatMessageModel} from '../_models/chat-message.model';
-import {ServerUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/ServerUrl.enum';
 import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
