@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BaseUrl} from '../_enums/BaseUrl.enum';
 import {Observable} from 'rxjs';
@@ -10,7 +10,12 @@ import {UserModel} from '../_models/user.model';
 })
 export class RootService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
+
+  fetchTenants(): Observable<TenantModel[]> {
+    return this.http.get<TenantModel[]>(BaseUrl.B1 + '/api/v1/root/tenants');
+  }
 
   fetchUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(BaseUrl.B1 + '/api/v1/root/users');
