@@ -32,8 +32,9 @@ import {HttpErrorResponseInterceptor} from './_interceptors/http-error-response-
 import {AdminSettingsComponent} from './settings/admin-settings/admin-settings.component';
 import {RootSettingsComponent} from './settings/root-settings/root-settings.component';
 import {RootUsersComponent} from './root/users/root-users.component';
+import {ContactsComponent} from './contacts/contacts.component';
+import {AdminOrRootGuard} from './auth/guards/admin-or-root-guard.service';
 
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,8 @@ import {RootUsersComponent} from './root/users/root-users.component';
     AuthoritiesToNamesPipe,
     AdminSettingsComponent,
     RootSettingsComponent,
-    RootUsersComponent
+    RootUsersComponent,
+    ContactsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -66,7 +68,7 @@ import {RootUsersComponent} from './root/users/root-users.component';
     NgbModule,
     ReactiveFormsModule
   ],
-  providers: [AuthGuard, AdminGuard, RootGuard,
+  providers: [AuthGuard, AdminGuard, RootGuard, AdminOrRootGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
@@ -84,4 +86,5 @@ import {RootUsersComponent} from './root/users/root-users.component';
     }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -15,6 +15,8 @@ import {RootSettingsComponent} from './settings/root-settings/root-settings.comp
 import {AdminSettingsComponent} from './settings/admin-settings/admin-settings.component';
 import {RootGuard} from './auth/guards/root-guard.service';
 import {RootUsersComponent} from './root/users/root-users.component';
+import {ContactsComponent} from './contacts/contacts.component';
+import {AdminOrRootGuard} from './auth/guards/admin-or-root-guard.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
         { path: 'root', canActivate: [RootGuard], component: RootSettingsComponent },
         { path: 'admin', canActivate: [AdminGuard], component: AdminSettingsComponent }]},
       { path: 'users', canActivate: [AdminGuard], component: UserListComponent },
+      { path: 'contacts', canActivate: [AdminOrRootGuard], component: ContactsComponent },
       { path: 'root', canActivate: [RootGuard], children: [
           { path: 'tenants', canActivate: [RootGuard], component: RootUsersComponent},
         ]},

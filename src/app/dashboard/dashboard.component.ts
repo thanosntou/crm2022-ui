@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/BaseUrl.enum';
 import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({

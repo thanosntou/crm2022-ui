@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
   faCoffee, faCogs, faHandshake, faHistory,
-  faSatelliteDish, faSignOutAlt, faUser,
+  faSatelliteDish, faSignOutAlt, faUser, faIdCard,
   faUsers, faComments, faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../_services/authentication.service';
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
 
-  faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
+  faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt; faContacts = faIdCard;
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs; faComment = faComments;
   faSatelliteDish = faSatelliteDish; faQuestionCircle = faQuestionCircle;  faUser = faUser;
 

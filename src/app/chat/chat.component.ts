@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ChatMessageModel} from '../_models/chat-message.model';
-import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/BaseUrl.enum';
 import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
     })};
 
     this.http.get<ChatMessageModel[]>(
-      BaseUrl.B1 + '/api/v1/chat', httpOptions
+      ServerUrl.B1 + '/api/v1/chat', httpOptions
     ).subscribe(
       (data: ChatMessageModel[]) => {
         this.messages = data;
@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit {
 
     const body = 'message=' + this.message.nativeElement.value;
     this.http.post<ChatMessageModel>(
-      BaseUrl.B1 + '/api/v1/chat', body, httpOptions
+      ServerUrl.B1 + '/api/v1/chat', body, httpOptions
     ).subscribe(
       (data: ChatMessageModel) => {
         // this.messages.push(data);

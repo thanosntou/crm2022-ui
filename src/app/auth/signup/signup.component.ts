@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {UserModel} from '../../_models/user.model';
-import {BaseUrl} from '../../_enums/BaseUrl.enum';
+import {ServerUrl} from '../../_enums/BaseUrl.enum';
 import {UserFormModel} from '../../_models/userForm.model';
 import {Router} from '@angular/router';
 
@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
 
     console.log(userForm);
 
-    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/user', userForm, httpOptions).subscribe(
+    this.http.post<UserModel>(ServerUrl.B1 + '/api/v1/user', userForm, httpOptions).subscribe(
       (data: UserModel) => this.authService.getAndSetAccessToken(data.username, data.password).subscribe(
         (token) => this.authService.authenticate(token).subscribe(
           (userDetails) => {

@@ -1,7 +1,7 @@
 import {UserModel} from '../_models/user.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/BaseUrl.enum';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable({
@@ -15,6 +15,6 @@ export class UserService {
   ) {}
 
   findById(id: number) {
-    return this.http.get<UserModel>(BaseUrl.B1 + '/api/v1/user?id=' + id, this.authService.jsonHeaders());
+    return this.http.get<UserModel>(ServerUrl.B1 + '/api/v1/user?id=' + id, this.authService.jsonHeaders());
   }
 }

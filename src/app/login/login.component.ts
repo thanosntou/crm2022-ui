@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
         this.authService.authenticate(token).subscribe(
           () => {
             if (this.authService.isAdmin()) {
-              this.router.navigate(['/settings/admin']);
+              this.router.navigate(['/contacts']);
             } else if (this.authService.isRoot()) {
-              this.router.navigate(['/root/tenants']);
+              this.router.navigate(['/contacts']);
             }
           },
           error => {
