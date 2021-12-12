@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Admin Panel</h3>
+    <br>
+    <div class="container-fluid">
+      <div class="row" style="overflow-x: scroll">
+        <h4> User Logins </h4>
+        <table class="table table-striped table-hover table-sm">
+          <thead class="thead bg-info">
+          <tr>
+            <th scope="col">
+              User <fa-icon [icon]="sortByNameIcon" (click)="sortByName()"></fa-icon>
+            </th>
+            <th scope="col">
+              # <fa-icon [icon]="sortByIdIcon" (click)="sortById()"></fa-icon>
+            </th>
+            <th scope="col">
+              Date <fa-icon [icon]="sortByDateIcon" (click)="sortByDate()"></fa-icon>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let login of logins">
+            <th scope="row">{{ login.user.username }}</th>
+            <td>{{ login.id }}</td>
+            <td>{{ login.createdOn }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
