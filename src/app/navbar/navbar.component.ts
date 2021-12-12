@@ -17,8 +17,6 @@ export class NavbarComponent implements OnInit {
   userDetails: UserDetailsModel;
   isRoot = false;
   isAdmin = false;
-  isTrader = false;
-  isFollower = false;
   @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
 
@@ -38,19 +36,11 @@ export class NavbarComponent implements OnInit {
       if (auth.role === 'ADMIN') {
         this.isAdmin = true;
       }
-      if (auth.role === 'TRADER') {
-        this.isTrader = true;
-      }
-      if (auth.role === 'FOLLOWER') {
-        this.isFollower = true;
-      }
     });
   }
 
   onSignOut() {
     this.isAdmin = false;
-    this.isTrader = false;
-    this.isFollower = false;
     this.userDetails = null;
     this.authService.deleteUserConnection();
     this.router.navigate(['/login']);

@@ -18,12 +18,8 @@ export class RootUsersComponent implements OnInit {
   tenants: TenantModel[] = [];
   allUsers: UserModel[] = [];
   admins: UserModel[] = [];
-  traders: UserModel[] = [];
-  followers: UserModel[] = [];
   newTenantForm: FormGroup;
   newAdminForm: FormGroup;
-  newTraderForm: FormGroup;
-  newFollowerForm: FormGroup;
   angleDownIcon = faAngleDown;
   faAngleDoubleDown = faAngleDoubleDown;
 
@@ -39,18 +35,6 @@ export class RootUsersComponent implements OnInit {
       'name': new FormControl(null)
       });
     this.newAdminForm = new FormGroup({
-      'tenantId': new FormControl(null),
-      'username': new FormControl(null),
-      'email': new FormControl(null),
-      'pass': new FormControl(null)
-    });
-    this.newTraderForm = new FormGroup({
-      'tenantId': new FormControl(null),
-      'username': new FormControl(null),
-      'email': new FormControl(null),
-      'pass': new FormControl(null)
-    });
-    this.newFollowerForm = new FormGroup({
       'tenantId': new FormControl(null),
       'username': new FormControl(null),
       'email': new FormControl(null),
@@ -80,67 +64,20 @@ export class RootUsersComponent implements OnInit {
     });
   }
 
-  onSaveTrader() {
-    this.newTraderForm.setControl('confirmPass', this.newTraderForm.get('pass'));
-    const form = this.newTraderForm.value;
-    this.rootService.createTrader(form).subscribe((trader) => {
-      this.traders.push(trader);
-      this.allUsers.push(trader);
-      this.newTraderForm.get('tenantId').reset();
-      this.newTraderForm.get('username').reset();
-      this.newTraderForm.get('email').reset();
-      this.newTraderForm.get('pass').reset();
-      this.newTraderForm.get('confirmPass').reset();
-    });
-  }
-
-  onSaveFollower() {
-    this.newFollowerForm.setControl('confirmPass', this.newFollowerForm.get('pass'));
-    const form = this.newFollowerForm.value;
-    this.rootService.createFollower(form).subscribe((follower) => {
-      this.followers.push(follower);
-      this.allUsers.push(follower);
-      this.newFollowerForm.get('tenantId').reset();
-      this.newFollowerForm.get('username').reset();
-      this.newFollowerForm.get('email').reset();
-      this.newFollowerForm.get('pass').reset();
-      this.newFollowerForm.get('confirmPass').reset();
-    });
-  }
-
-  fetchAdminsAndTradersOfTenant(tenant: TenantModel) {
+  fetchAdminsOfTenant(tenant: TenantModel) {
     this.rootService.fetchAdminsByTenant(tenant.id).subscribe((admins) => this.admins = admins);
-    this.rootService.fetchTradersByTenant(tenant.id).subscribe((traders) => this.traders = traders);
   }
 
-  fetchFollowersOfTrader(trader: UserModel) {
-    this.rootService.fetchFollowersByTrader(trader.id).subscribe((followers) => this.followers = followers);
-  }
-
-  onDeleteFollower(follower: UserModel, tenant: TenantModel) {
-    if (confirm('Are you sure to delete the follower: "' + follower.username + '" of tenant: "' + tenant.name + '" ?')) {
-      this.rootService.deleteFollowerUser(follower).subscribe((deletedUser) =>
-        this.followers = this.followers.filter(f => f.id !== deletedUser.id));
-    }
-  }
-
-  onDeleteTrader(trader: UserModel, tenant: TenantModel) {
-    if (confirm('Are you sure to delete the trader: "' + trader.username + '" of tenant: "' + tenant.name + '" ?')) {
-      this.rootService.deleteTraderUser(trader).subscribe((deletedTrader) =>
-        this.traders = this.traders.filter(f => f.id !== deletedTrader.id));
-    }
-  }
-
-  onDeleteAdmin(trader: UserModel, tenant: TenantModel) {
-    if (confirm('Are you sure to delete the admin: "' + trader.username + '" of tenant: "' + tenant.name + '" ?')) {
-      this.rootService.deleteAdminUser(trader).subscribe((deletedAdmin) =>
+  onDeleteAdmin(admin: UserModel, tenant: TenantModel) {
+    if (confirm('Are you sure to delete the admin: "' + admin.username + '" of tenant: "' + tenant.name + '" ?')) {
+      this.rootService.deleteAdminUser(admin).subscribe((deletedAdmin) =>
         this.admins = this.admins.filter(f => f.id !== deletedAdmin.id));
     }
   }
 
   onDeleteTenant(tenant: TenantModel) {
     if (confirm('Are you sure to delete the tenant: "' + tenant.name + '" ?\n' +
-      'All the admin, traders and followers will get deleted!')) {
+      'The admin will get deleted, too!')) {
       this.rootService.deleteTenant(tenant).subscribe((deletedTenant) =>
         this.tenants = this.tenants.filter(f => f.id !== deletedTenant.id));
     }

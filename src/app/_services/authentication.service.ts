@@ -176,38 +176,6 @@ export class AuthenticationService {
     });
   }
 
-  isTrader() {
-    let status = false;
-    this.findUserRoles().forEach(auth => {
-      if (auth.role === 'TRADER') {
-        status = true;
-      }
-    });
-    return status;
-  }
-
-  isTraderPromise() {
-    return new Promise((resolve) => {
-      resolve(this.isTrader());
-    });
-  }
-
-  isFollower() {
-    let status = false;
-    this.findUserRoles().forEach(auth => {
-      if (auth.role === 'FOLLOWER') {
-        status = true;
-      }
-    });
-    return status;
-  }
-
-  isFollowerPromise() {
-    return new Promise((resolve) => {
-      resolve(this.isFollower());
-    });
-  }
-
   isExpired(token: TokenModel) {
     return (token.timestamp + (token.expires_in * 1000)) <= (Date.now() + 10000);
   }

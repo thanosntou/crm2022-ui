@@ -27,9 +27,6 @@ export class UserListComponent implements OnInit {
   sortByIdIcon = faSortNumericDown;
   isRoot = false;
   users: UserModel[] = [];
-  traders: UserModel[] = [];
-  totalVolume: number;
-  activeVolume: number;
   usersBalanceMap: Map<string, number>;
 
   constructor(private adminService: AdminService,
@@ -46,33 +43,10 @@ export class UserListComponent implements OnInit {
     this.fetchAndSetUsers();
   }
 
-  onChangeTrader(event): void {
-    this.fetchAndSetVolumes(event.target.value);
-    this.fetchAndSetUsersWalletBalance(event.target.value);
-  }
-
   fetchAndSetUsers() {
     this.adminService.fetchUsers().subscribe(response => {
       this.users = response;
-      this.traders = this.users.filter(i => i.authorities.indexOf('TRADER') > -1);
     });
-  }
-
-  fetchAndSetVolumes(traderName: string) {
-    this.adminService.fetchVolumes(traderName).subscribe(
-      (data: {totalVolume: number, activeVolume: number}) => {
-        this.totalVolume = data.totalVolume;
-        this.activeVolume = data.activeVolume;
-      },
-      error => console.log(JSON.stringify(error))
-    );
-  }
-
-  fetchAndSetUsersWalletBalance(traderName: string) {
-    this.adminService.fetchUsersWalletBalance(traderName).subscribe(
-      (data: Map<string, number>) => this.usersBalanceMap = data,
-      error => console.log(JSON.stringify(error))
-    );
   }
 
   onDeleteUser(user: UserModel) {
