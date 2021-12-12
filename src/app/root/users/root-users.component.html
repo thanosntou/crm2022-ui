@@ -1,4 +1,3 @@
-
 <div class="card" id="main">
   <div class="card-body">
     <h3 class="card-title">Users</h3>
@@ -8,14 +7,9 @@
       <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseNewTenant">
         New Tenant
       </button>
-      <button style="margin-left: 10px" class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseNewAdmin">
+      <button style="margin-left: 10px" class="btn btn-outline-secondary" type="button" data-toggle="collapse"
+              data-target="#collapseNewAdmin">
         New Admin
-      </button>
-      <button style="margin-left: 10px" class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseNewTrader">
-        New Trader
-      </button>
-      <button style="margin-left: 10px" class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseNewFollower">
-        New Follower
       </button>
     </div>
     <div class="collapse" id="collapseNewTenant">
@@ -58,88 +52,40 @@
         </form>
       </div>
     </div>
-    <div class="collapse" id="collapseNewTrader">
-      <div class="container-fluid">
-        <form [formGroup]="newTraderForm" (ngSubmit)="onSaveTrader()">
-          <div class="form-group">
-            <label for="traders"><strong>Tenant</strong></label>
-            <select id="traders" [formControlName]="'tenantId'" class="form-control">
-              <option *ngFor="let tenant of tenants" [ngValue]="tenant.id">{{ tenant.name }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="username2"><strong>Username</strong></label>
-            <input type="text" id="username2" [formControlName]="'username'" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="email2"><strong>Email</strong></label>
-            <input type="email" id="email2" [formControlName]="'email'" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="pass2"><strong>Password</strong></label>
-            <input type="password" id="pass2" [formControlName]="'pass'" class="form-control">
-          </div>
-          <div class="form-group">
-            <button class="btn btn-success" type="submit">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="collapse" id="collapseNewFollower">
-      <div class="container-fluid">
-        <form [formGroup]="newFollowerForm" (ngSubmit)="onSaveFollower()">
-          <div class="form-group">
-            <label for="followers"><strong>Tenant</strong></label>
-            <select id="followers" [formControlName]="'tenantId'" class="form-control">
-              <option *ngFor="let tenant of tenants" [ngValue]="tenant.id">{{ tenant.name }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="username3"><strong>Username</strong></label>
-            <input type="text" id="username3" [formControlName]="'username'" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="email3"><strong>Email</strong></label>
-            <input type="email" id="email3" [formControlName]="'email'" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="pass3"><strong>Password</strong></label>
-            <input type="password" id="pass3" [formControlName]="'pass'" class="form-control">
-          </div>
-          <div class="form-group">
-            <button class="btn btn-success" type="submit">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
     <br>
-<!--    Accordions   -->
-    <h5>Grouped By Tenant, Admins, Traders and Followers</h5>
+    <h5>Grouped By Tenant, Admins</h5>
     <div class="accordion" id="tenantsAccordion">
       <div class="card" *ngFor="let tenant of tenants">
-        <div class="card-header" [id]="'headingTenant'+tenant.id" (click)="fetchAdminsAndTradersOfTenant(tenant)">
+        <div class="card-header" [id]="'headingTenant'+tenant.id" (click)="fetchAdminsOfTenant(tenant)">
           <div class="d-flex justify-content-between">
-            <button class="btn btn-link" type="button" data-toggle="collapse" [attr.href]="'collapseTenant'+tenant.id" [attr.data-target]="'#collapseTenant'+tenant.id" aria-expanded="true" [attr.aria-controls]="'collapseTenant'+tenant.id">
-              {{ tenant.name }} <fa-icon [icon]="angleDownIcon"></fa-icon>
+            <button class="btn btn-link" type="button" data-toggle="collapse" [attr.href]="'collapseTenant'+tenant.id"
+                    [attr.data-target]="'#collapseTenant'+tenant.id" aria-expanded="true"
+                    [attr.aria-controls]="'collapseTenant'+tenant.id">
+              {{ tenant.name }}
+              <fa-icon [icon]="angleDownIcon"></fa-icon>
             </button>
             <button class="btn btn-outline-danger" (click)="onDeleteTenant(tenant)">Delete</button>
           </div>
         </div>
-        <div [id]="'collapseTenant'+tenant.id" class="collapse" [attr.href]="'collapseTenant'+tenant.id" [attr.aria-labelledby]="'headingTenant'+tenant.id" data-parent="#tenantsAccordion">
+        <div [id]="'collapseTenant'+tenant.id" class="collapse" [attr.href]="'collapseTenant'+tenant.id"
+             [attr.aria-labelledby]="'headingTenant'+tenant.id" data-parent="#tenantsAccordion">
           <div class="card-body">
             <span><strong>Admins</strong></span>
-
             <div class="accordion" id="adminsAccordion">
               <div class="card" *ngFor="let admin of admins">
                 <div class="card-header" [id]="'headingAdmin'+admin.id">
                   <div class="d-flex justify-content-between">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" [attr.href]="'collapseAdmin'+admin.id" [attr.data-target]="'#collapseAdmin'+admin.id" aria-expanded="true" [attr.aria-controls]="'collapseAdmin'+admin.id">
-                      {{ admin.username }} <fa-icon [icon]="angleDownIcon"></fa-icon>
+                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                            [attr.href]="'collapseAdmin'+admin.id" [attr.data-target]="'#collapseAdmin'+admin.id"
+                            aria-expanded="true" [attr.aria-controls]="'collapseAdmin'+admin.id">
+                      {{ admin.username }}
+                      <fa-icon [icon]="angleDownIcon"></fa-icon>
                     </button>
                     <button class="btn btn-outline-danger" (click)="onDeleteAdmin(admin, tenant)">Delete</button>
                   </div>
                 </div>
-                <div [id]="'collapseAdmin'+admin.id" class="collapse" [attr.href]="'collapseAdmin'+admin.id" [attr.aria-labelledby]="'headingAdmin'+admin.id" data-parent="#adminsAccordion">
+                <div [id]="'collapseAdmin'+admin.id" class="collapse" [attr.href]="'collapseAdmin'+admin.id"
+                     [attr.aria-labelledby]="'headingAdmin'+admin.id" data-parent="#adminsAccordion">
                   <div class="card-body">
                     {{ admin.username }}
                   </div>
@@ -147,42 +93,6 @@
               </div>
             </div>
             <br>
-            <span><strong>Traders</strong></span>
-<!--            {{ traders.length === 0 ? 'No Traders' : 'Traders' }}-->
-            <div class="accordion" id="tradersAccordion">
-              <div class="card" *ngFor="let trader of traders">
-                <div class="card-header" [id]="'headingTrader'+trader.id" (click)="fetchFollowersOfTrader(trader)">
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" [attr.href]="'collapseTrader'+trader.id" [attr.data-target]="'#collapseTrader'+trader.id" aria-expanded="true" [attr.aria-controls]="'collapseTrader'+trader.id">
-                      {{ trader.username }} <fa-icon [icon]="angleDownIcon"></fa-icon>
-                    </button>
-                    <button class="btn btn-outline-danger" (click)="onDeleteTrader(trader, tenant)">Delete</button>
-                  </div>
-                </div>
-                <div [id]="'collapseTrader'+trader.id" class="collapse" [attr.href]="'collapseTrader'+trader.id" [attr.aria-labelledby]="'headingTrader'+trader.id" data-parent="#tradersAccordion">
-                  <div class="card-body">
-                    <span><strong>Followers</strong></span>
-                    <div class="accordion" id="followersAccordion">
-                      <div class="card" *ngFor="let follower of followers">
-                        <div class="card-header" [id]="'headingFollower'+follower.id">
-                          <div class="d-flex justify-content-between">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" [attr.href]="'collapseFollower'+follower.id" [attr.data-target]="'#collapseFollower'+follower.id" aria-expanded="true" [attr.aria-controls]="'collapseFollower'+follower.id">
-                              {{ follower.username }}
-                            </button>
-                            <button class="btn btn-outline-danger" (click)="onDeleteFollower(follower, tenant)">Delete</button>
-                          </div>
-                        </div>
-                        <div [id]="'collapseFollower'+follower.id" class="collapse" [attr.href]="'collapseFollower'+follower.id" [attr.aria-labelledby]="'headingFollower'+follower.id" data-parent="#followersAccordion">
-                          <div class="card-body">
-                            {{ follower.username }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -194,11 +104,18 @@
       <thead class="thead bg-info">
       <tr>
         <th>#</th>
-        <th scope="col">ID <fa-icon></fa-icon></th>
-        <th scope="col">Name <fa-icon></fa-icon></th>
-        <th scope="col">Role <fa-icon></fa-icon></th>
-        <th scope="col">Tenant <fa-icon></fa-icon></th>
-        <th scope="col">Created <fa-icon></fa-icon></th>
+        <th scope="col">ID
+          <fa-icon></fa-icon>
+        </th>
+        <th scope="col">Name
+          <fa-icon></fa-icon>
+        </th>
+        <th scope="col">Tenant
+          <fa-icon></fa-icon>
+        </th>
+        <th scope="col">Created
+          <fa-icon></fa-icon>
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -213,5 +130,5 @@
       </tbody>
     </table>
 
-</div>
+  </div>
 </div>

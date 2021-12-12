@@ -20,7 +20,6 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', canActivate: [AuthGuard], component: AppInComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'followers/:id', component: UserComponent },
       { path: 'settings', children: [
         { path: 'root', canActivate: [RootGuard], component: RootSettingsComponent },
         { path: 'admin', canActivate: [AdminGuard], component: AdminSettingsComponent }]},

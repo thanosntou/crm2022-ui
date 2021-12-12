@@ -12,10 +12,6 @@ export class RootService {
 
   constructor(private http: HttpClient) {}
 
-  fetchTenants(): Observable<TenantModel[]> {
-    return this.http.get<TenantModel[]>(BaseUrl.B1 + '/api/v1/root/tenants');
-  }
-
   fetchUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(BaseUrl.B1 + '/api/v1/root/users');
   }
@@ -24,36 +20,12 @@ export class RootService {
     return this.http.get<UserModel[]>(BaseUrl.B1 + '/api/v1/root/tenants/' + tenantId + '/admins');
   }
 
-  fetchTradersByTenant(tenantId: number): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(BaseUrl.B1 + '/api/v1/root/tenants/' + tenantId + '/traders');
-  }
-
-  fetchFollowersByTrader(traderId: number): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(BaseUrl.B1 + '/api/v1/root/traders/' + traderId + '/followers');
-  }
-
   createTenant(name: string): Observable<TenantModel> {
     return this.http.post<TenantModel>(BaseUrl.B1 + '/api/v1/root/tenants', name);
   }
 
   createAdmin(form: string): Observable<UserModel> {
     return this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/root/admin', form);
-  }
-
-  createTrader(form: string): Observable<UserModel> {
-    return this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/root/trader', form);
-  }
-
-  createFollower(form: string): Observable<UserModel> {
-    return this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/root/follower', form);
-  }
-
-  deleteFollowerUser(follower: UserModel): Observable<UserModel> {
-    return this.http.delete<UserModel>(BaseUrl.B1 + '/api/v1/root/followers/' + follower.id);
-  }
-
-  deleteTraderUser(trader: UserModel): Observable<UserModel> {
-    return this.http.delete<UserModel>(BaseUrl.B1 + '/api/v1/root/traders/' + trader.id);
   }
 
   deleteAdminUser(admin: UserModel): Observable<UserModel> {

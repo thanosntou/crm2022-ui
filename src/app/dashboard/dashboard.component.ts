@@ -21,25 +21,6 @@ export class DashboardComponent implements OnInit {
               public authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.http.get<{
-      client: string,
-      walletBalance: number,
-      activeBalance: number,
-      availableMargin: number,
-      earned: number
-    }>(BaseUrl.B1 + '/api/v1/follower/dashboard')
-      .subscribe(
-      (data: {
-        client: string,
-        walletBalance: number,
-        activeBalance: number,
-        availableMargin: number,
-        earned: number
-      }) => {
-      this.data = data;
-    },
-      error => error
-    );
   }
 
 }
