@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenModel} from '../_models/token.model';
-import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/BaseUrl.enum';
 import {UserDetailsModel} from '../_models/user-details.model';
 import {Router} from '@angular/router';
 import {UserModel} from '../_models/user.model';
@@ -36,7 +36,7 @@ export class AuthenticationService {
         'Authorization': this.BASIC_AUTH_PASSWORD})
     };
     const body = 'username=' + username + '&password=' + password + '&grant_type=' + 'password';
-    return this.http.post<TokenModel>(BaseUrl.B1 + '/oauth/token', body, httpOptions);
+    return this.http.post<TokenModel>(ServerUrl.B1 + '/oauth/token', body, httpOptions);
   }
 
   authenticate(token: TokenModel): Observable<UserDetailsModel> {
@@ -45,7 +45,7 @@ export class AuthenticationService {
         'Authorization': token.token_type + ' ' + token.access_token
       })
     };
-    return this.http.get<UserDetailsModel>(BaseUrl.B1 + '/api/v1/user/authenticate', httpOptions)
+    return this.http.get<UserDetailsModel>(ServerUrl.B1 + '/api/v1/user/authenticate', httpOptions)
       .pipe(tap((details) => {
         console.log('in tap');
         token.timestamp = Date.now();
@@ -60,7 +60,7 @@ export class AuthenticationService {
         'Authorization': this.BASIC_AUTH_PASSWORD})
     };
     const body = 'grant_type=refresh_token&refresh_token=' + token.refresh_token;
-    this.http.post<TokenModel>(BaseUrl.B1 + '/oauth/token', body, httpOptions).subscribe(
+    this.http.post<TokenModel>(ServerUrl.B1 + '/oauth/token', body, httpOptions).subscribe(
       (data) => this.refreshUserConnectionDetails(token),
       error => this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}}),
       () => {
@@ -173,6 +173,12 @@ export class AuthenticationService {
   isAdminPromise() {
     return new Promise((resolve) => {
       resolve(this.isAdmin());
+    });
+  }
+
+  isAdminOrRootPromise() {
+    return new Promise((resolve) => {
+      resolve(this.isAdmin() || this.isRoot());
     });
   }
 
