@@ -1,7 +1,7 @@
 import {UserModel} from '../_models/user.model';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ServerUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/ServerUrl.enum';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable({

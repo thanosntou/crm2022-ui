@@ -42,4 +42,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-src/app/_enums/BaseUrl.enum.ts
+src/app/_enums/ServerUrl.enum.ts

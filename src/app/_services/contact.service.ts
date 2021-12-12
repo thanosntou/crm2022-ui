@@ -1,7 +1,7 @@
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {LoginModel} from '../_models/login.model';
 import {Injectable} from '@angular/core';
-import {ServerUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/ServerUrl.enum';
 import {AuthenticationService} from './authentication.service';
 import {UserModel} from '../_models/user.model';
 import {Observable} from 'rxjs';

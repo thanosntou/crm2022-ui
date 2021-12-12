@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenModel} from '../_models/token.model';
-import {ServerUrl} from '../_enums/BaseUrl.enum';
+import {ServerUrl} from '../_enums/ServerUrl.enum';
 import {UserDetailsModel} from '../_models/user-details.model';
 import {Router} from '@angular/router';
 import {UserModel} from '../_models/user.model';

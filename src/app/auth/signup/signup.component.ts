@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {UserModel} from '../../_models/user.model';
-import {ServerUrl} from '../../_enums/BaseUrl.enum';
+import {ServerUrl} from '../../_enums/ServerUrl.enum';
 import {UserFormModel} from '../../_models/userForm.model';
 import {Router} from '@angular/router';
 
