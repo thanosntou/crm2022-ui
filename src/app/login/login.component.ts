@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSignIn() {
+  onLogIn() {
     const username = this.username.nativeElement.value;
     const password = this.password.nativeElement.value;
     this.authService.getAndSetAccessToken(username, password).subscribe(

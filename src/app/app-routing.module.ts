@@ -1,22 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {AuthGuard} from './auth/guards/auth-guard.service';
+import {AuthGuard} from './_guards/auth-guard.service';
 import {UserComponent} from './user/user.component';
 import {LoginComponent} from './login/login.component';
 import {AppInComponent} from './app-in/app-in.component';
-import {SignupComponent} from './auth/signup/signup.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginListComponent} from './login-list/login-list.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {AdminGuard} from './auth/guards/admin-guard.service';
+import {AdminGuard} from './_guards/admin-guard.service';
 import {RootSettingsComponent} from './settings/root-settings/root-settings.component';
 import {AdminSettingsComponent} from './settings/admin-settings/admin-settings.component';
-import {RootGuard} from './auth/guards/root-guard.service';
+import {RootGuard} from './_guards/root-guard.service';
 import {RootUsersComponent} from './root/users/root-users.component';
 import {ContactsComponent} from './contacts/contacts.component';
-import {AdminOrRootGuard} from './auth/guards/admin-or-root-guard.service';
+import {AdminOrRootGuard} from './_guards/admin-or-root-guard.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,7 +33,6 @@ const appRoutes: Routes = [
       { path: 'logins', canActivate: [AdminGuard], component: LoginListComponent },
     ]
   },
-  { path: 'signup', component: SignupComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/not-found' }
 ];

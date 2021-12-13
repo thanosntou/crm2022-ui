@@ -10,21 +10,17 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {UnlessDirective} from './_directives/unless.directive';
 import {DropdownDirective} from './shared/dropdown.directive';
-import {NewAccountComponent} from './new-account/new-account.component';
 import {LoginComponent} from './login/login.component';
 import {SettingItemDirective} from './_directives/setting-item.directive';
 import {AppInComponent} from './app-in/app-in.component';
 import {LoginListComponent} from './login-list/login-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {UserComponent} from './user/user.component';
-import {ChatComponent} from './chat/chat.component';
 import {AppRoutingModule} from './app-routing.module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {AuthGuard} from './auth/guards/auth-guard.service';
-import {SigninComponent} from './auth/signin/signin.component';
-import {SignupComponent} from './auth/signup/signup.component';
-import {RootGuard} from './auth/guards/root-guard.service';
-import {AdminGuard} from './auth/guards/admin-guard.service';
+import {AuthGuard} from './_guards/auth-guard.service';
+import {RootGuard} from './_guards/root-guard.service';
+import {AdminGuard} from './_guards/admin-guard.service';
 import {AuthoritiesToNamesPipe} from './_pipes/authorities-to-names.pipe';
 import {AuthInterceptor} from './_interceptors/auth-interceptor';
 import {MethodInterceptor} from './_interceptors/method-interceptor';
@@ -33,7 +29,7 @@ import {AdminSettingsComponent} from './settings/admin-settings/admin-settings.c
 import {RootSettingsComponent} from './settings/root-settings/root-settings.component';
 import {RootUsersComponent} from './root/users/root-users.component';
 import {ContactsComponent} from './contacts/contacts.component';
-import {AdminOrRootGuard} from './auth/guards/admin-or-root-guard.service';
+import {AdminOrRootGuard} from './_guards/admin-or-root-guard.service';
 
 @NgModule({
   declarations: [
@@ -42,17 +38,13 @@ import {AdminOrRootGuard} from './auth/guards/admin-or-root-guard.service';
     NavbarComponent,
     UnlessDirective,
     DropdownDirective,
-    NewAccountComponent,
     LoginComponent,
     SettingItemDirective,
     AppInComponent,
     UserListComponent,
     LoginListComponent,
     UserComponent,
-    ChatComponent,
     PageNotFoundComponent,
-    SigninComponent,
-    SignupComponent,
     AuthoritiesToNamesPipe,
     AdminSettingsComponent,
     RootSettingsComponent,
