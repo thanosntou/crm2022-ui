@@ -6,23 +6,24 @@ import {
 } from '@angular/router';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {AuthenticationService} from '../../_services/authentication.service';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AdminGuard implements CanActivate, CanActivateChild {
 
   constructor(private router: Router,
               private authService: AuthenticationService) {}
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isAuthenticated()
+    return this.authService.isAdminPromise()
       .then(
-        (authenticated: boolean) => {
-          if (authenticated) {
+        (isAdmin: boolean) => {
+          if (isAdmin) {
             return true;
           } else {
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
+
           }
         });
   }
