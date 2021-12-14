@@ -17,6 +17,16 @@ export class ContactsComponent implements OnInit {
   businessTypes: string[] = [];
   newContactForm: FormGroup;
   sortByCompanyIcon = faSortAlphaDown;
+  sortByNameIcon = faSortAlphaDown;
+  sortBySurnameIcon = faSortAlphaDown;
+  sortByWebsiteIcon = faSortAlphaDown;
+  sortByCountryIcon = faSortAlphaDown;
+  sortBySkypeIcon = faSortAlphaDown;
+  sortByViberIcon = faSortAlphaDown;
+  sortByWhatsAppIcon = faSortAlphaDown;
+  sortByWeChatIcon = faSortAlphaDown;
+  sortByLinkedInIcon = faSortAlphaDown;
+  sortByBusinessTypeIcon = faSortAlphaDown;
 
   constructor(private contactService: ContactService, private router: Router) {
   }
@@ -82,14 +92,90 @@ export class ContactsComponent implements OnInit {
   sortByCompany() {
     if (this.sortByCompanyIcon === faSortAlphaDown) {
       this.sortByCompanyIcon = faSortAlphaUp;
-      this.contacts.sort((a, b) =>
-        a.company.localeCompare(b.company)
-      );
+      this.contacts.sort((a, b) => a.company.localeCompare(b.company));
     } else {
       this.sortByCompanyIcon = faSortAlphaDown;
-      this.contacts.sort((a, b) =>
-        b.company.localeCompare(a.company)
-      );
+      this.contacts.sort((a, b) => b.company.localeCompare(a.company));
+    }
+  }
+
+  sortByName() {
+    if (this.sortByNameIcon === faSortAlphaDown) {
+      this.sortByNameIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      this.sortByNameIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.name.localeCompare(a.name));
+    }
+  }
+
+  sortBySurname() {
+    if (this.sortBySurnameIcon === faSortAlphaDown) {
+      this.sortBySurnameIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.surname.localeCompare(b.surname));
+    } else {
+      this.sortBySurnameIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.surname.localeCompare(a.surname));
+    }
+  }
+
+  sortByWebsite() {
+    if (this.sortByWebsiteIcon === faSortAlphaDown) {
+      this.sortByWebsiteIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.website.localeCompare(b.website));
+    } else {
+      this.sortByWebsiteIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.website.localeCompare(a.website));
+    }
+  }
+
+  sortByCountry() {
+    if (this.sortByCountryIcon === faSortAlphaDown) {
+      this.sortByCountryIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.country.name.localeCompare(b.country.name));
+    } else {
+      this.sortByCountryIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.country.name.localeCompare(a.country.name));
+    }
+  }
+
+  sortBySkype() {
+    if (this.sortBySkypeIcon === faSortAlphaDown) {
+      this.sortBySkypeIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.skype.localeCompare(b.skype));
+    } else {
+      this.sortBySkypeIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.skype.localeCompare(a.skype));
+    }
+  }
+
+  sortByWeChat() {
+    if (this.sortByWebsiteIcon === faSortAlphaDown) {
+      this.sortByWebsiteIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.weChat.localeCompare(b.weChat));
+    } else {
+      this.sortByWebsiteIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.weChat.localeCompare(a.weChat));
+    }
+  }
+
+  sortByLinkedIn() {
+    if (this.sortByLinkedInIcon === faSortAlphaDown) {
+      this.sortByLinkedInIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.linkedIn.localeCompare(b.linkedIn));
+    } else {
+      this.sortByLinkedInIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.linkedIn.localeCompare(a.linkedIn));
+    }
+  }
+
+  sortByBusinessType() {
+    if (this.sortByBusinessTypeIcon === faSortAlphaDown) {
+      this.sortByBusinessTypeIcon = faSortAlphaUp;
+      this.contacts.sort((a, b) => a.businessType.localeCompare(b.businessType));
+    } else {
+      this.sortByBusinessTypeIcon = faSortAlphaDown;
+      this.contacts.sort((a, b) => b.businessType.localeCompare(a.businessType));
     }
   }
 

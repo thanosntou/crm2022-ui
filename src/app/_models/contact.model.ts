@@ -5,11 +5,11 @@ export interface ContactModel {
   company: string;
   name: string;
   surname: string;
-  country: CountryModel;
   website: string;
+  country: CountryModel;
   skype: string;
-  viber: string;
-  whatsApp: string;
+  viber: number;
+  whatsApp: number;
   weChat: string;
   linkedIn: string;
   businessType: string;
