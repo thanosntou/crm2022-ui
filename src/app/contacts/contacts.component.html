@@ -8,7 +8,10 @@
     </button>
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewContactsFromExcel"
             aria-expanded="false" aria-controls="collapseNewContactsFromExcel" style="margin-left: 10px">
-      Excel
+      Import
+    </button>
+    <button class="btn btn-primary" type="button" (click)="onExportContacts()" style="margin-left: 10px">
+      Export
     </button>
     <div class="collapse" id="collapseNewContact">
       <div class="card card-body">
@@ -77,16 +80,14 @@
     <div class="collapse" id="collapseNewContactsFromExcel">
       <div class="card card-body" style="min-height: 15vh">
         <div class="text-center">
-          <input class="form-control" type="file"
+          <input #myInputFile class="form-control" type="file"
                  (change)="onChange($event)">
 
-          <button (click)="onExcelFileUpload()"
+          <button (click)="onImportFromFile()"
                   class="btn-sm btn-success">
-            Upload
+            Import
           </button>
         </div>
-
-        <!--Flag variable is used here-->
         <div class="container" *ngIf="loading">
           <h3>Loading ...</h3>
         </div>

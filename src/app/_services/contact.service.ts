@@ -21,17 +21,19 @@ export class ContactService {
     return this.http.post<ContactModel>(ServerUrl.B1 + '/api/v1/contact', form);
   }
 
-  excelFileUpload(file: any) {
+  importFromFile(file: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Ignore': 'true'})
     };
-    console.log(file);
-    console.log(file.name);
     const formData = new FormData();
     formData.append('file', file, file.name);
 
-    return this.http.post<any>(ServerUrl.B1 + '/api/v1/contact/file', formData, httpOptions);
+    return this.http.post<any>(ServerUrl.B1 + '/api/v1/contact/import', formData, httpOptions);
+  }
+
+  export(): Observable<void> {
+    return this.http.get<void>(ServerUrl.B1 + '/api/v1/contact/export');
   }
 
   getAll(): Observable<ContactModel[]> {
