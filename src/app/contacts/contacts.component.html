@@ -6,12 +6,16 @@
             aria-expanded="false" aria-controls="collapseNewContact">
       +
     </button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewContactsFromExcel"
+            aria-expanded="false" aria-controls="collapseNewContactsFromExcel" style="margin-left: 10px">
+      Excel
+    </button>
     <div class="collapse" id="collapseNewContact">
       <div class="card card-body">
         <form [formGroup]="newContactForm" (ngSubmit)="onSaveContact()">
           <div formGroupName="contactData">
             <div class="form-group">
-              <label for="company"><strong>Company</strong></label>
+              <label for="company"><strong>Company *</strong></label>
               <input type="text" id="company" [formControlName]="'company'" class="form-control">
             </div>
             <div class="form-group">
@@ -27,7 +31,7 @@
               <input type="text" id="website" [formControlName]="'website'" class="form-control">
             </div>
             <div class="form-group">
-              <label for="country"><strong>Country</strong></label>
+              <label for="country"><strong>Country *</strong></label>
               <select id="country" [formControlName]="'country'" class="form-control">
                 <option *ngFor="let country of countries" [ngValue]="country.code">{{ country.name }}</option>
               </select>
@@ -53,7 +57,7 @@
               <input type="text" id="linkedIn" [formControlName]="'linkedIn'" class="form-control">
             </div>
             <div class="form-group">
-              <label for="businessType"><strong>BusinessType</strong></label>
+              <label for="businessType"><strong>BusinessType *</strong></label>
               <select id="businessType" [formControlName]="'businessType'" class="form-control">
                 <option *ngFor="let businessType of businessTypes" [ngValue]="businessType">{{ businessType }}</option>
               </select>
@@ -63,10 +67,40 @@
               <input type="text" id="comments" [formControlName]="'comments'" class="form-control">
             </div>
             <div class="form-group">
-              <button class="btn btn-success" type="submit" [disabled]="!newContactForm.valid">Save</button>
+              <button class="btn-sm btn-success" type="submit" [disabled]="!newContactForm.valid">Save</button>
             </div>
           </div>
         </form>
+      </div>
+    </div>
+
+    <div class="collapse" id="collapseNewContactsFromExcel">
+      <div class="card card-body" style="min-height: 15vh">
+        <div class="text-center">
+          <input class="form-control" type="file"
+                 (change)="onChange($event)">
+
+          <button (click)="onExcelFileUpload()"
+                  class="btn-sm btn-success">
+            Upload
+          </button>
+        </div>
+
+        <!--Flag variable is used here-->
+        <div class="container" *ngIf="loading">
+          <h3>Loading ...</h3>
+        </div>
+        <!--        <form [formGroup]="newExcelContactsForm" (ngSubmit)="onExcelFileUpload()">-->
+        <!--          <div formGroupName="excelContactData">-->
+        <!--            <div class="form-group mb-3">-->
+        <!--              <label for="file"><strong>Excel File</strong></label>-->
+        <!--              <input type="file" id="file" [formControlName]="'file'" class="form-control form-control-sm">-->
+        <!--            </div>-->
+        <!--            <div class="form-group">-->
+        <!--              <button class="btn-sm btn-success" type="submit" [disabled]="!newExcelContactsForm.valid">Upload</button>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </form>-->
       </div>
     </div>
     <br><br>
@@ -96,9 +130,9 @@
           <td>{{ contact.company }}</td>
           <td>{{ contact.name }}</td>
           <td>{{ contact.surname }}</td>
-          <td>{{ contact.website }}</td>
-          <td><span *ngIf="contact.country"
-                    class="flag-icon flag-icon-{{ contact.country.code | lowercase }}"></span> {{ contact.country.name }}</td>
+          <td><a *ngIf="contact.website" href="//{{ contact.website }}" target="_blank">{{ contact.website }}</a></td>
+          <td><span *ngIf="contact.country" class="flag-icon flag-icon-{{ contact.country.code | lowercase }}"></span>
+            {{ contact.country.name }}</td>
           <td>{{ contact.skype }}</td>
           <td>{{ contact.country.phonePrefix }} {{ contact.viber }}</td>
           <td>{{ contact.country.phonePrefix }} {{ contact.whatsApp }}</td>
