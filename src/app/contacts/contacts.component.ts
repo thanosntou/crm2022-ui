@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ContactModel} from '../_models/contact.model';
 import {Router} from '@angular/router';
 import {ContactService} from '../_services/contact.service';
@@ -27,6 +27,9 @@ export class ContactsComponent implements OnInit {
   sortBySkypeIcon = faSortAlphaDown;
   sortByLinkedInIcon = faSortAlphaDown;
   sortByBusinessTypeIcon = faSortAlphaDown;
+
+  @ViewChild('myInputFile')
+  myInputVariable: ElementRef;
 
   constructor(private contactService: ContactService, private router: Router) {
   }
@@ -87,20 +90,28 @@ export class ContactsComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
-  onExcelFileUpload() {
+  onImportFromFile() {
     // const file: File = this.newExcelContactsForm.get('excelContactData').get('file').value;
-    // console.log(file);
     this.loading = !this.loading;
-    this.contactService.excelFileUpload(this.file).subscribe(
-      (result) => {
-        console.log('ok');
+    this.contactService.importFromFile(this.file).subscribe(
+      () => {
         this.contactService.getAll().subscribe(response => this.contacts = response);
         this.newExcelContactsForm.get('excelContactData').get('file').reset();
         this.loading = false;
+        this.myInputVariable.nativeElement.value = '';
+        alert('Contacts from excel file imported successfully!');
       },
-      // (result) => result.forEach(contact => this.contacts.push(contact)),
       error => console.log(JSON.stringify(error))
     );
+  }
+
+  onExportContacts() {
+    if (confirm('Export contacts into excel file?')) {
+      this.contactService.export().subscribe(
+        () => alert('Exported excel file of contacts sent to your email successfully!'),
+        error => console.log(JSON.stringify(error))
+      );
+    }
   }
 
   onDelete(contact: ContactModel) {
