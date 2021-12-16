@@ -105,6 +105,18 @@ export class ContactsComponent implements OnInit {
     );
   }
 
+  onDownloadXlsx() {
+    // const file: File = this.newExcelContactsForm.get('excelContactData').get('file').value;
+    this.contactService.download().subscribe(data => this.downloadFile(data),
+      error => console.log('Error downloading the file.'));
+  }
+
+  downloadFile(data: any) {
+    const blob = new Blob([data], {type: '*/*'});
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
+
   onExportContacts() {
     if (confirm('Export contacts into excel file?')) {
       this.contactService.export().subscribe(
