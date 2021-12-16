@@ -1,9 +1,7 @@
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {LoginModel} from '../_models/login.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {ServerUrl} from '../_enums/ServerUrl.enum';
 import {AuthenticationService} from './authentication.service';
-import {UserModel} from '../_models/user.model';
 import {Observable} from 'rxjs';
 import {ContactModel} from '../_models/contact.model';
 import {CountryModel} from '../_models/country.model';
@@ -21,6 +19,19 @@ export class ContactService {
 
   create(form: ContactModel): Observable<ContactModel> {
     return this.http.post<ContactModel>(ServerUrl.B1 + '/api/v1/contact', form);
+  }
+
+  excelFileUpload(file: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Ignore': 'true'})
+    };
+    console.log(file);
+    console.log(file.name);
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post<any>(ServerUrl.B1 + '/api/v1/contact/file', formData, httpOptions);
   }
 
   getAll(): Observable<ContactModel[]> {

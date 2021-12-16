@@ -3,7 +3,7 @@ import {ContactModel} from '../_models/contact.model';
 import {Router} from '@angular/router';
 import {ContactService} from '../_services/contact.service';
 import {faSortAlphaDown, faSortAlphaUp} from '@fortawesome/free-solid-svg-icons';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CountryModel} from '../_models/country.model';
 
 @Component({
@@ -16,15 +16,15 @@ export class ContactsComponent implements OnInit {
   countries: CountryModel[] = [];
   businessTypes: string[] = [];
   newContactForm: FormGroup;
+  newExcelContactsForm: FormGroup;
+  file: File = null;
+  loading = false;
   sortByCompanyIcon = faSortAlphaDown;
   sortByNameIcon = faSortAlphaDown;
   sortBySurnameIcon = faSortAlphaDown;
   sortByWebsiteIcon = faSortAlphaDown;
   sortByCountryIcon = faSortAlphaDown;
   sortBySkypeIcon = faSortAlphaDown;
-  sortByViberIcon = faSortAlphaDown;
-  sortByWhatsAppIcon = faSortAlphaDown;
-  sortByWeChatIcon = faSortAlphaDown;
   sortByLinkedInIcon = faSortAlphaDown;
   sortByBusinessTypeIcon = faSortAlphaDown;
 
@@ -43,18 +43,23 @@ export class ContactsComponent implements OnInit {
     });
     this.newContactForm = new FormGroup({
       'contactData': new FormGroup({
-        'company': new FormControl(null),
+        'company': new FormControl(null, Validators.required),
         'name': new FormControl(null),
         'surname': new FormControl(null),
-        'country': new FormControl(null),
+        'country': new FormControl(null, Validators.required),
         'website': new FormControl(null),
         'skype': new FormControl(null),
         'viber': new FormControl(null),
         'whatsApp': new FormControl(null),
         'weChat': new FormControl(null),
         'linkedIn': new FormControl(null),
-        'businessType': new FormControl(null),
+        'businessType': new FormControl(null, Validators.required),
         'comments': new FormControl(null)
+      })
+    });
+    this.newExcelContactsForm = new FormGroup({
+      'excelContactData': new FormGroup({
+        'file': new FormControl(null, Validators.required)
       })
     });
   }
@@ -76,6 +81,26 @@ export class ContactsComponent implements OnInit {
       this.newContactForm.get('contactData').get('businessType').reset();
       this.newContactForm.get('contactData').get('comments').reset();
     });
+  }
+
+  onChange(event) {
+    this.file = event.target.files[0];
+  }
+
+  onExcelFileUpload() {
+    // const file: File = this.newExcelContactsForm.get('excelContactData').get('file').value;
+    // console.log(file);
+    this.loading = !this.loading;
+    this.contactService.excelFileUpload(this.file).subscribe(
+      (result) => {
+        console.log('ok');
+        this.contactService.getAll().subscribe(response => this.contacts = response);
+        this.newExcelContactsForm.get('excelContactData').get('file').reset();
+        this.loading = false;
+      },
+      // (result) => result.forEach(contact => this.contacts.push(contact)),
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   onDelete(contact: ContactModel) {
