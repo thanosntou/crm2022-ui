@@ -13,6 +13,9 @@
     <button class="btn btn-primary" type="button" (click)="onExportContacts()" style="margin-left: 10px">
       Export
     </button>
+    <button class="btn btn-primary" type="button" (click)="onDownloadXlsx()" style="margin-left: 10px">
+      Download
+    </button>
     <div class="collapse" id="collapseNewContact">
       <div class="card card-body">
         <form [formGroup]="newContactForm" (ngSubmit)="onSaveContact()">

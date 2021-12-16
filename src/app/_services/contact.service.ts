@@ -33,6 +33,10 @@ export class ContactService {
   }
 
   export(): Observable<void> {
+    return this.http.post<void>(ServerUrl.B1 + '/api/v1/contact/export', null);
+  }
+
+  download(): Observable<any> {
     return this.http.get<void>(ServerUrl.B1 + '/api/v1/contact/export');
   }
 
