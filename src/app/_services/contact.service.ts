@@ -37,7 +37,7 @@ export class ContactService {
   }
 
   download(): Observable<any> {
-    return this.http.get<void>(ServerUrl.B1 + '/api/v1/contact/export');
+    return this.http.post<any>(ServerUrl.B1 + '/api/v1/contact/download', null, { responseType: 'blob'});
   }
 
   getAll(): Observable<ContactModel[]> {
