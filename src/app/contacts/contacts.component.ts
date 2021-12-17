@@ -5,6 +5,7 @@ import {ContactService} from '../_services/contact.service';
 import {faSortAlphaDown, faSortAlphaUp} from '@fortawesome/free-solid-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CountryModel} from '../_models/country.model';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-contacts',
@@ -111,10 +112,12 @@ export class ContactsComponent implements OnInit {
       error => console.log('Error downloading the file.'));
   }
 
-  downloadFile(data: any) {
-    const blob = new Blob([data], {type: '*/*'});
-    const url = window.URL.createObjectURL(blob);
-    window.open(url);
+  downloadFile(data: Blob) {
+    const blob = new Blob([data], {type: 'application/octet-stream'});
+    FileSaver.saveAs(blob, 'temp.xlsx');
+    // const url = window.URL.createObjectURL(blob);
+    // const url = window.URL.createObjectURL(blob);
+    // window.open(url);
   }
 
   onExportContacts() {
