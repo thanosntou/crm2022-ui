@@ -17,7 +17,7 @@
         <tr *ngFor="let exportFile of exports; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <th scope="row">{{ exportFile.name }}</th>
-          <td>{{ exportFile.createdAt }}</td>
+          <td>{{ exportFile.createdAt | date: 'medium' }}</td>
           <td>{{ exportFile.exportedCount }}</td>
         </tr>
         </tbody>

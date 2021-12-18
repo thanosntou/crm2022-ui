@@ -18,6 +18,7 @@ import {ContactsComponent} from './contacts/contacts.component';
 import {AdminOrRootGuard} from './_guards/admin-or-root-guard.service';
 import {ImportsComponent} from './imports/imports.component';
 import {ExportsComponent} from './exports/exports.component';
+import {EmailsComponent} from './emails/emails.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
       { path: 'contacts', canActivate: [AdminOrRootGuard], component: ContactsComponent },
       { path: 'imports', canActivate: [AdminOrRootGuard], component: ImportsComponent },
       { path: 'exports', canActivate: [RootGuard], component: ExportsComponent },
+      { path: 'emails', canActivate: [AdminOrRootGuard], component: EmailsComponent },
       { path: 'root', canActivate: [RootGuard], children: [
           { path: 'tenants', canActivate: [RootGuard], component: RootUsersComponent},
         ]},

@@ -5,6 +5,7 @@ import {AuthenticationService} from './authentication.service';
 import {Observable} from 'rxjs';
 import {ContactModel} from '../_models/contact.model';
 import {CountryModel} from '../_models/country.model';
+import {EmailModel} from '../_models/email.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class ContactService {
     } else {
       return this.http.post<Blob>(ServerUrl.B1 + '/api/v1/export?type=DOWNLOAD', null, {responseType: 'blob' as 'json'});
     }
+  }
+
+  sendEmail(form): Observable<void> {
+    return this.http.post<void>(ServerUrl.B1 + '/api/v1/email', {all: true, subject: form.subject, content: form.content});
   }
 
   getAll(): Observable<ContactModel[]> {
