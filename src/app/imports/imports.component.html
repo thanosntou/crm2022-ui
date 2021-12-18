@@ -17,7 +17,7 @@
         <tr *ngFor="let importFile of imports; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <th scope="row">{{ importFile.name }}</th>
-          <td>{{ importFile.createdAt }}</td>
+          <td>{{ importFile.createdAt | date: 'medium' }}</td>
           <td>{{ importFile.importedCount }}</td>
         </tr>
         </tbody>

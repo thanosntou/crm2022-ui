@@ -32,6 +32,7 @@ import {ContactsComponent} from './contacts/contacts.component';
 import {AdminOrRootGuard} from './_guards/admin-or-root-guard.service';
 import { ImportsComponent } from './imports/imports.component';
 import { ExportsComponent } from './exports/exports.component';
+import { EmailsComponent } from './emails/emails.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ExportsComponent } from './exports/exports.component';
     RootUsersComponent,
     ContactsComponent,
     ImportsComponent,
-    ExportsComponent
+    ExportsComponent,
+    EmailsComponent
   ],
   imports: [
     AppRoutingModule,

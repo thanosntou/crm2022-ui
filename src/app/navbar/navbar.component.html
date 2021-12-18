@@ -30,6 +30,9 @@
     <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/exports" role="button">
       <fa-icon [icon]="faExports"></fa-icon>
       Exports</a>
+    <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/emails" role="button">
+      <fa-icon [icon]="faEmails"></fa-icon>
+      Emails</a>
     <br>
   </div>
 </div>

@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
   faCoffee, faCogs, faHandshake, faHistory,
   faSatelliteDish, faSignOutAlt, faUser, faIdCard,
-  faUsers, faComments, faQuestionCircle, faFileImport, faFileExport
+  faUsers, faComments, faQuestionCircle, faFileImport, faFileExport, faEnvelopeSquare, faEnvelopeOpenText
 } from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../_services/authentication.service';
 import {Router} from '@angular/router';
@@ -33,6 +33,7 @@ export class NavbarComponent implements OnInit {
   faSatelliteDish = faSatelliteDish;
   faQuestionCircle = faQuestionCircle;
   faUser = faUser;
+  faEmails = faEnvelopeOpenText;
 
   constructor(private router: Router,
               private authService: AuthenticationService) {

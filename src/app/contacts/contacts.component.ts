@@ -6,6 +6,7 @@ import {faSortAlphaDown, faSortAlphaUp} from '@fortawesome/free-solid-svg-icons'
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CountryModel} from '../_models/country.model';
 import * as FileSaver from 'file-saver';
+import {EmailModel} from '../_models/email.model';
 
 @Component({
   selector: 'app-contacts',
@@ -18,6 +19,7 @@ export class ContactsComponent implements OnInit {
   businessTypes: string[] = [];
   newContactForm: FormGroup;
   newExcelContactsForm: FormGroup;
+  newEmailForm: FormGroup;
   file: File = null;
   loading = false;
   sortByCompanyIcon = faSortAlphaDown;
@@ -70,6 +72,12 @@ export class ContactsComponent implements OnInit {
     this.newExcelContactsForm = new FormGroup({
       'excelContactData': new FormGroup({
         'file': new FormControl(null, Validators.required)
+      })
+    });
+    this.newEmailForm = new FormGroup({
+      'emailData': new FormGroup({
+        'subject': new FormControl(null),
+        'content': new FormControl(null),
       })
     });
   }
@@ -127,6 +135,21 @@ export class ContactsComponent implements OnInit {
     if (confirm('Export contacts into excel file?')) {
       this.contactService.export(type).subscribe(
         () => alert('Exported excel file of contacts sent to your email successfully!'),
+        error => console.log(JSON.stringify(error))
+      );
+    }
+  }
+
+  onSendEmail() {
+    const email = this.newEmailForm.get('emailData').value;
+    console.log(email);
+    if (confirm('Send email to all contacts?')) {
+      this.contactService.sendEmail(email).subscribe(
+        () => {
+          this.newEmailForm.get('emailData').get('subject').reset();
+          this.newEmailForm.get('emailData').get('content').reset();
+          alert('Email sent!');
+        },
         error => console.log(JSON.stringify(error))
       );
     }
