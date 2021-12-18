@@ -2,20 +2,46 @@
   <div class="card-body">
     <h3 class="card-title">Contacts</h3>
     <hr>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewContact"
-            aria-expanded="false" aria-controls="collapseNewContact">
-      +
-    </button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewContactsFromExcel"
-            aria-expanded="false" aria-controls="collapseNewContactsFromExcel" style="margin-left: 10px">
-      Import
-    </button>
-    <button class="btn btn-primary" type="button" (click)="onExportContacts()" style="margin-left: 10px">
-      Export
-    </button>
-    <button class="btn btn-primary" type="button" (click)="onDownloadXlsx()" style="margin-left: 10px">
-      Download
-    </button>
+    <div class="row">
+      <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseNewContact"
+              aria-expanded="false" aria-controls="collapseNewContact">
+        <b>+</b>
+      </button>
+      <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseNewContactsFromExcel"
+              aria-expanded="false" aria-controls="collapseNewContactsFromExcel" style="margin-left: 10px">
+        Import
+      </button>
+
+      <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="margin-left: 10px">
+          Export
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="onExportToEmail()"><b>Email</b></a>
+          <a class="dropdown-item" (click)="onExportToDownload()"><b>Download</b></a>
+        </div>
+      </div>
+    </div>
+    <!--    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewContact"-->
+    <!--            aria-expanded="false" aria-controls="collapseNewContact">-->
+    <!--      +-->
+    <!--    </button>-->
+    <!--    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNewContactsFromExcel"-->
+    <!--            aria-expanded="false" aria-controls="collapseNewContactsFromExcel" style="margin-left: 10px">-->
+    <!--      Import-->
+    <!--    </button>-->
+
+    <!--    <div class="dropdown">-->
+    <!--      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+    <!--        Export-->
+    <!--      </button>-->
+    <!--      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+    <!--        <a class="dropdown-item" (click)="onExportToEmail()">Email</a>-->
+    <!--        <a class="dropdown-item" (click)="onExportToDownload()">Download</a>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
     <div class="collapse" id="collapseNewContact">
       <div class="card card-body">
         <form [formGroup]="newContactForm" (ngSubmit)="onSaveContact()">
@@ -86,7 +112,7 @@
           <input #myInputFile class="form-control" type="file"
                  (change)="onChange($event)">
 
-          <button (click)="onImportFromFile()"
+          <button (click)="onImport()"
                   class="btn-sm btn-success">
             Import
           </button>
@@ -107,7 +133,7 @@
         <!--        </form>-->
       </div>
     </div>
-    <br><br>
+    <br>
     <div class="row" style="overflow-x: scroll">
       <table class="table table-striped table-hover table-sm">
         <thead class="thead bg-info">
@@ -145,7 +171,7 @@
           <td>{{ contact.businessType }}</td>
           <td>{{ contact.comments }}</td>
           <td>
-            <button class="btn btn-danger" (click)="onDelete(contact)">Delete</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="onDelete(contact)">Delete</button>
           </td>
         </tr>
         </tbody>

@@ -32,12 +32,12 @@ export class ContactService {
     return this.http.post<any>(ServerUrl.B1 + '/api/v1/contact/import', formData, httpOptions);
   }
 
-  export(): Observable<void> {
-    return this.http.post<void>(ServerUrl.B1 + '/api/v1/contact/export', null);
-  }
-
-  download(): Observable<Blob> {
-    return this.http.post<Blob>(ServerUrl.B1 + '/api/v1/contact/download', null, {responseType: 'blob' as 'json'});
+  export(type: string): Observable<any> {
+    if (type === 'EMAIL') {
+      return this.http.get<any>(ServerUrl.B1 + '/api/v1/contact/export?type=EMAIL');
+    } else {
+      return this.http.get<Blob>(ServerUrl.B1 + '/api/v1/contact/export?type=DOWNLOAD', {responseType: 'blob' as 'json'});
+    }
   }
 
   getAll(): Observable<ContactModel[]> {
