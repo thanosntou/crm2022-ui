@@ -30,6 +30,8 @@ import {RootSettingsComponent} from './settings/root-settings/root-settings.comp
 import {RootUsersComponent} from './root/users/root-users.component';
 import {ContactsComponent} from './contacts/contacts.component';
 import {AdminOrRootGuard} from './_guards/admin-or-root-guard.service';
+import { ImportsComponent } from './imports/imports.component';
+import { ExportsComponent } from './exports/exports.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import {AdminOrRootGuard} from './_guards/admin-or-root-guard.service';
     AdminSettingsComponent,
     RootSettingsComponent,
     RootUsersComponent,
-    ContactsComponent
+    ContactsComponent,
+    ImportsComponent,
+    ExportsComponent
   ],
   imports: [
     AppRoutingModule,

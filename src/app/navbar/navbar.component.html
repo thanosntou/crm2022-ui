@@ -1,22 +1,35 @@
 <div class="container-fluid" id="sidenavbar">
   <br>
   <div class="row">
-    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, <span *ngIf="userDetails">{{ userDetails.user.username }}</span></h5>
+    <h5>
+      <fa-icon [icon]="faUser"></fa-icon>
+      Welcome, <span *ngIf="userDetails">{{ userDetails.user.username }}</span></h5>
   </div>
   <br>
   <div class="row">
-    <button class="btn btn-dark" (click)="onSignOut()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
+    <button class="btn btn-dark" (click)="onSignOut()">
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+      Logout
+    </button>
   </div>
   <hr id="hr1">
   <div class="row nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
-<!--    <a class="nav-link" routerLinkActive="active" routerLink="/dashboard" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>-->
-<!--    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/settings/admin" role="button"><fa-icon [icon]="faCogs"></fa-icon> Admin Settings</a>-->
-<!--    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/settings/root" role="button"><fa-icon [icon]="faCogs"></fa-icon> Root Settings</a>-->
-<!--    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/root/tenants" role="button"><fa-icon [icon]="faUsers"></fa-icon> Users</a>-->
-<!--    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/users" role="button"><fa-icon [icon]="faUsers"></fa-icon> Users</a>-->
-<!--    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/logins" role="button"><fa-icon [icon]="faUsers"></fa-icon> Logins</a>-->
+    <!--    <a class="nav-link" routerLinkActive="active" routerLink="/dashboard" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>-->
+    <!--    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/settings/admin" role="button"><fa-icon [icon]="faCogs"></fa-icon> Admin Settings</a>-->
+    <!--    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/settings/root" role="button"><fa-icon [icon]="faCogs"></fa-icon> Root Settings</a>-->
+    <!--    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/root/tenants" role="button"><fa-icon [icon]="faUsers"></fa-icon> Users</a>-->
+    <!--    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/users" role="button"><fa-icon [icon]="faUsers"></fa-icon> Users</a>-->
+    <!--    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/logins" role="button"><fa-icon [icon]="faUsers"></fa-icon> Logins</a>-->
 
-    <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/contacts" role="button"><fa-icon [icon]="faContacts"></fa-icon> Contacts</a>
+    <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/contacts" role="button">
+      <fa-icon [icon]="faContacts"></fa-icon>
+      Contacts</a>
+    <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/imports" role="button">
+      <fa-icon [icon]="faImports"></fa-icon>
+      Imports</a>
+    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/exports" role="button">
+      <fa-icon [icon]="faExports"></fa-icon>
+      Exports</a>
     <br>
   </div>
 </div>

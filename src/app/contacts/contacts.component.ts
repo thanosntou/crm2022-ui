@@ -32,6 +32,12 @@ export class ContactsComponent implements OnInit {
   @ViewChild('myInputFile')
   myInputVariable: ElementRef;
 
+  static downloadFile(data: Blob) {
+    console.log('here');
+    const blob = new Blob([data], {type: 'application/octet-stream'});
+    FileSaver.saveAs(blob, 'temp.xlsx');
+  }
+
   constructor(private contactService: ContactService, private router: Router) {
   }
 
@@ -91,8 +97,7 @@ export class ContactsComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
-  onImportFromFile() {
-    // const file: File = this.newExcelContactsForm.get('excelContactData').get('file').value;
+  onImport() {
     this.loading = !this.loading;
     this.contactService.importFromFile(this.file).subscribe(
       () => {
@@ -106,23 +111,21 @@ export class ContactsComponent implements OnInit {
     );
   }
 
-  onDownloadXlsx() {
-    // const file: File = this.newExcelContactsForm.get('excelContactData').get('file').value;
-    this.contactService.download().subscribe(data => this.downloadFile(data),
-      error => console.log('Error downloading the file.'));
+  onExportToDownload() {
+    const type = 'DOWNLOAD';
+    this.contactService.export(type).subscribe(
+      data => {
+        console.log('ela');
+        ContactsComponent.downloadFile(data);
+      },
+      error => console.log('Error downloading the file.', error));
   }
 
-  downloadFile(data: Blob) {
-    const blob = new Blob([data], {type: 'application/octet-stream'});
-    FileSaver.saveAs(blob, 'temp.xlsx');
-    // const url = window.URL.createObjectURL(blob);
-    // const url = window.URL.createObjectURL(blob);
-    // window.open(url);
-  }
 
-  onExportContacts() {
+  onExportToEmail() {
+    const type = 'EMAIL';
     if (confirm('Export contacts into excel file?')) {
-      this.contactService.export().subscribe(
+      this.contactService.export(type).subscribe(
         () => alert('Exported excel file of contacts sent to your email successfully!'),
         error => console.log(JSON.stringify(error))
       );

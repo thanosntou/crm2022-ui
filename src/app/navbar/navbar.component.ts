@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
   faCoffee, faCogs, faHandshake, faHistory,
   faSatelliteDish, faSignOutAlt, faUser, faIdCard,
-  faUsers, faComments, faQuestionCircle
+  faUsers, faComments, faQuestionCircle, faFileImport, faFileExport
 } from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../_services/authentication.service';
 import {Router} from '@angular/router';
@@ -17,15 +17,26 @@ export class NavbarComponent implements OnInit {
   userDetails: UserDetailsModel;
   isRoot = false;
   isAdmin = false;
-  @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
+  @Output() userSignedOut = new EventEmitter<{ signedOut: boolean }>();
   @Output() tabSelected = new EventEmitter<string>();
 
-  faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt; faContacts = faIdCard;
-  faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs; faComment = faComments;
-  faSatelliteDish = faSatelliteDish; faQuestionCircle = faQuestionCircle;  faUser = faUser;
+  faCoffee = faCoffee;
+  faUsers = faUsers;
+  faSignOutAlt = faSignOutAlt;
+  faContacts = faIdCard;
+  faImports = faFileImport;
+  faExports = faFileExport;
+  faHandshake = faHandshake;
+  faHistory = faHistory;
+  faCogs = faCogs;
+  faComment = faComments;
+  faSatelliteDish = faSatelliteDish;
+  faQuestionCircle = faQuestionCircle;
+  faUser = faUser;
 
   constructor(private router: Router,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService) {
+  }
 
   ngOnInit() {
     this.userDetails = this.authService.findUserDetails();
