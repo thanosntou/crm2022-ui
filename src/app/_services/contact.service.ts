@@ -24,19 +24,20 @@ export class ContactService {
   importFromFile(file: any) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Ignore': 'true'})
+        'Ignore': 'true'
+      })
     };
     const formData = new FormData();
     formData.append('file', file, file.name);
 
-    return this.http.post<any>(ServerUrl.B1 + '/api/v1/contact/import', formData, httpOptions);
+    return this.http.post<any>(ServerUrl.B1 + '/api/v1/import', formData, httpOptions);
   }
 
   export(type: string): Observable<any> {
     if (type === 'EMAIL') {
-      return this.http.get<any>(ServerUrl.B1 + '/api/v1/contact/export?type=EMAIL');
+      return this.http.post<any>(ServerUrl.B1 + '/api/v1/export?type=EMAIL', null);
     } else {
-      return this.http.get<Blob>(ServerUrl.B1 + '/api/v1/contact/export?type=DOWNLOAD', {responseType: 'blob' as 'json'});
+      return this.http.post<Blob>(ServerUrl.B1 + '/api/v1/export?type=DOWNLOAD', null, {responseType: 'blob' as 'json'});
     }
   }
 
