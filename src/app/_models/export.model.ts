@@ -3,5 +3,5 @@ export interface ExportModel {
   name: string;
   createdAt: string;
   createdBy: string;
-  importedCount: string;
+  exportedCount: string;
 }
