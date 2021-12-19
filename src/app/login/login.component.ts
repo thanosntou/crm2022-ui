@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogIn() {
+    this.isLoading = true;
     const loginData = this.loginForm.get('loginData').value;
     this.authService.getAndSetAccessToken(loginData).subscribe(
       (token) => {
