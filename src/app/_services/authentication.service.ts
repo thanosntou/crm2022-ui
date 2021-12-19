@@ -29,13 +29,13 @@ export class AuthenticationService {
     private router: Router
   ) {}
 
-  getAndSetAccessToken(username: string, password: string): Observable<TokenModel> {
+  getAndSetAccessToken(loginData): Observable<TokenModel> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': this.AUTH_CONTENT_TYPE,
         'Authorization': this.BASIC_AUTH_PASSWORD})
     };
-    const body = 'username=' + username + '&password=' + password + '&grant_type=' + 'password';
+    const body = 'username=' + loginData.username + '&password=' + loginData.password + '&grant_type=' + 'password';
     return this.http.post<TokenModel>(ServerUrl.B1 + '/oauth/token', body, httpOptions);
   }
 

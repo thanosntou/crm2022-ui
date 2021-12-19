@@ -6,7 +6,6 @@ import {faSortAlphaDown, faSortAlphaUp} from '@fortawesome/free-solid-svg-icons'
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CountryModel} from '../_models/country.model';
 import * as FileSaver from 'file-saver';
-import {EmailModel} from '../_models/email.model';
 
 @Component({
   selector: 'app-contacts',
