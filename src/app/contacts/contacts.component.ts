@@ -29,10 +29,6 @@ export class ContactsComponent implements OnInit {
   sortBySkypeIcon = faSortAlphaDown;
   sortByLinkedInIcon = faSortAlphaDown;
   sortByBusinessTypeIcon = faSortAlphaDown;
-  // skypeIcon = faSkype;
-  // viberIcon = faViber;
-  // whatsappIcon = faWhatsapp;
-  // wechatIcon = faWeixin;
 
   @ViewChild('myInputFile')
   myInputVariable: ElementRef;

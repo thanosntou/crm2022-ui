@@ -14,8 +14,6 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   errorMessage: string;
   loginForm: FormGroup;
-  @ViewChild('username') username: ElementRef;
-  @ViewChild('password') password: ElementRef;
 
   constructor(
     private http: HttpClient,
@@ -49,7 +47,7 @@ export class LoginComponent implements OnInit {
           },
           error => {
             this.isLoading = false;
-            this.errorMessage = 'error';
+            this.errorMessage = error;
             setTimeout(() => this.errorMessage = null, 2500);
           }
         );
