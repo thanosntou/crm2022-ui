@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../_services/authentication.service';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ContactModel} from '../_models/contact.model';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   isLoading = false;
   errorMessage: string;
+  loginForm: FormGroup;
   @ViewChild('username') username: ElementRef;
   @ViewChild('password') password: ElementRef;
 
@@ -22,13 +25,20 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      'loginData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'password': new FormControl(null, Validators.required),
+      })
+    });
   }
 
   onLogIn() {
-    const username = this.username.nativeElement.value;
-    const password = this.password.nativeElement.value;
-    this.authService.getAndSetAccessToken(username, password).subscribe(
+    const loginData = this.loginForm.get('loginData').value;
+    this.authService.getAndSetAccessToken(loginData).subscribe(
       (token) => {
+        this.loginForm.get('loginData').get('username').reset();
+        this.loginForm.get('loginData').get('password').reset();
         this.authService.authenticate(token).subscribe(
           () => {
             if (this.authService.isAdmin()) {
