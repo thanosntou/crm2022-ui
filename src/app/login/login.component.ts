@@ -1,9 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../_services/authentication.service';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ContactModel} from '../_models/contact.model';
 
 @Component({
   selector: 'app-login',
