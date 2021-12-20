@@ -30,7 +30,7 @@ export class ContactsComponent implements OnInit {
   sortByLinkedInIcon = faSortAlphaDown;
   sortByBusinessTypeIcon = faSortAlphaDown;
 
-  @ViewChild('myInputFile')
+  @ViewChild('myInputFile', {static: false})
   myInputVariable: ElementRef;
 
   static downloadFile(data: Blob) {
