@@ -3,7 +3,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -63,7 +62,6 @@ import { EmailsComponent } from './emails/emails.component';
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
-    NgbModule,
     ReactiveFormsModule
   ],
   providers: [AuthGuard, AdminGuard, RootGuard, AdminOrRootGuard,
