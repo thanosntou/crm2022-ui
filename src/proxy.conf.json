@@ -1,7 +1,7 @@
 {
   "/": {
-    "target": "https://crm2022-test.herokuapp.com",
-    "secure": true,
+    "target": "http://crm2022-test.herokuapp.com",
+    "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   }
