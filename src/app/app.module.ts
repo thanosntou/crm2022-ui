@@ -6,7 +6,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {UnlessDirective} from './_directives/unless.directive';
 import {DropdownDirective} from './shared/dropdown.directive';
 import {LoginComponent} from './login/login.component';
@@ -36,7 +35,6 @@ import { EmailsComponent } from './emails/emails.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     NavbarComponent,
     UnlessDirective,
     DropdownDirective,
