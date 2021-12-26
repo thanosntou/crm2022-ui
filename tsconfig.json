@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "resolveJsonModule": true,
     "incremental": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -8,6 +9,7 @@
     "declaration": false,
     "module": "es2015",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
