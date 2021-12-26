@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   onLogIn() {
     console.log('prin');
     console.log(JSON.stringify(environment.backendBaseUrl));
+    console.log(JSON.stringify(environment.production));
     console.log('meta');
     this.isLoading = true;
     const loginData = this.loginForm.get('loginData').value;
