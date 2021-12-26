@@ -6,7 +6,6 @@ import {UserComponent} from './user/user.component';
 import {LoginComponent} from './login/login.component';
 import {AppInComponent} from './app-in/app-in.component';
 import {UserListComponent} from './user-list/user-list.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginListComponent} from './login-list/login-list.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AdminGuard} from './_guards/admin-guard.service';
@@ -23,7 +22,6 @@ import {EmailsComponent} from './emails/emails.component';
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', canActivate: [AuthGuard], component: AppInComponent, children: [
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'settings', children: [
         { path: 'root', canActivate: [RootGuard], component: RootSettingsComponent },
         { path: 'admin', canActivate: [AdminGuard], component: AdminSettingsComponent }]},

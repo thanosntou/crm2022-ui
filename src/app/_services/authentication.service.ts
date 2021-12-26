@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenModel} from '../_models/token.model';
-import {ServerUrl} from '../_enums/ServerUrl.enum';
 import {UserDetailsModel} from '../_models/user-details.model';
 import {Router} from '@angular/router';
 import {UserModel} from '../_models/user.model';
 import {UserConnectionModel} from '../_models/user-connection.model';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import ProxyFile from '../../proxy.conf.json';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   private tempToken: TokenModel;
   USER_CONNECTION = 'userConnection';
@@ -20,65 +20,82 @@ export class AuthenticationService {
     return {
       headers: new HttpHeaders()
         .append('Authorization', this.findAccessToken())
-        .append('Content-Type', 'application/json')
+        .append('Content-Type', 'application/json'),
     };
   }
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {
+    console.log('Proxing external calls to: ' + ProxyFile['/'].target);
+  }
 
   getAndSetAccessToken(loginData): Observable<TokenModel> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': this.AUTH_CONTENT_TYPE,
-        'Authorization': this.BASIC_AUTH_PASSWORD})
+        Authorization: this.BASIC_AUTH_PASSWORD,
+      }),
     };
     const body = 'username=' + loginData.username + '&password=' + loginData.password + '&grant_type=' + 'password';
-    return this.http.post<TokenModel>(ServerUrl.B1 + '/oauth/token', body, httpOptions);
+    return this.http.post<TokenModel>('/oauth/token', body, httpOptions);
   }
 
   authenticate(token: TokenModel): Observable<UserDetailsModel> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': token.token_type + ' ' + token.access_token
-      })
+        Authorization: token.token_type + ' ' + token.access_token,
+      }),
     };
-    return this.http.get<UserDetailsModel>(ServerUrl.B1 + '/api/v1/user/authenticate', httpOptions)
-      .pipe(tap((details) => {
-        console.log('in tap');
-        token.timestamp = Date.now();
-        this.saveUserConnectionDetails(token, details);
-      }));
+    return this.http.get<UserDetailsModel>('/api/v1/user/authenticate', httpOptions)
+      .pipe(
+        tap((details) => {
+          token.timestamp = Date.now();
+          this.saveUserConnectionDetails(token, details);
+        })
+      );
   }
 
   refreshToken(token: TokenModel) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': this.AUTH_CONTENT_TYPE,
-        'Authorization': this.BASIC_AUTH_PASSWORD})
+        Authorization: this.BASIC_AUTH_PASSWORD,
+      }),
     };
-    const body = 'grant_type=refresh_token&refresh_token=' + token.refresh_token;
-    this.http.post<TokenModel>(ServerUrl.B1 + '/oauth/token', body, httpOptions).subscribe(
-      (data) => this.refreshUserConnectionDetails(token),
-      error => this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}}),
-      () => {
-        console.log('Access Token refreshed');
-        this.authenticate(this.tempToken).subscribe(
-          userDetails => {},
-          error => this.router.navigate(['login'], {queryParams: {message: 'Could not authenticate'}})
-        );
-      }
-    );
+    const body =
+      'grant_type=refresh_token&refresh_token=' + token.refresh_token;
+    this.http
+      .post<TokenModel>('/oauth/token', body, httpOptions)
+      .subscribe(
+        (data) => this.refreshUserConnectionDetails(token),
+        (error) =>
+          this.router.navigate(['/login'], {
+            queryParams: { message: 'Wrong credentials' },
+          }),
+        () => {
+          console.log('Access Token refreshed');
+          this.authenticate(this.tempToken).subscribe(
+            (userDetails) => {},
+            (error) =>
+              this.router.navigate(['login'], {
+                queryParams: { message: 'Could not authenticate' },
+              })
+          );
+        }
+      );
   }
 
   saveUserConnectionDetails(token: TokenModel, userDetails: UserDetailsModel) {
-    sessionStorage.setItem(this.USER_CONNECTION, JSON.stringify(new UserConnectionModel(token, userDetails)));
+    sessionStorage.setItem(
+      this.USER_CONNECTION,
+      JSON.stringify(new UserConnectionModel(token, userDetails))
+    );
   }
 
   refreshUserConnectionDetails(token: TokenModel) {
-    sessionStorage.setItem(this.USER_CONNECTION, JSON.stringify(new UserConnectionModel(token, this.findUserDetails())));
+    sessionStorage.setItem(
+      this.USER_CONNECTION,
+      JSON.stringify(new UserConnectionModel(token, this.findUserDetails()))
+    );
   }
 
   findAccessToken() {
@@ -128,7 +145,7 @@ export class AuthenticationService {
     if (!userConObj) {
       return null;
     }
-    return <UserConnectionModel> JSON.parse(userConObj);
+    return <UserConnectionModel>JSON.parse(userConObj);
   }
 
   deleteUserConnection() {
@@ -146,7 +163,7 @@ export class AuthenticationService {
 
   isAdmin() {
     let status = false;
-    this.findUserRoles().forEach(auth => {
+    this.findUserRoles().forEach((auth) => {
       if (auth.role === 'ADMIN') {
         status = true;
       }
@@ -156,7 +173,7 @@ export class AuthenticationService {
 
   isRoot() {
     let status = false;
-    this.findUserRoles().forEach(auth => {
+    this.findUserRoles().forEach((auth) => {
       if (auth.role === 'ROOT') {
         status = true;
       }
@@ -183,13 +200,12 @@ export class AuthenticationService {
   }
 
   isExpired(token: TokenModel) {
-    return (token.timestamp + (token.expires_in * 1000)) <= (Date.now() + 10000);
+    return token.timestamp + token.expires_in * 1000 <= Date.now() + 10000;
   }
 
   isAuthenticated() {
     return new Promise((resolve) => {
-        resolve(this.findToken());
+      resolve(this.findToken());
     });
   }
-
 }
