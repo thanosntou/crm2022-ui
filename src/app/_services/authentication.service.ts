@@ -7,10 +7,10 @@ import {UserModel} from '../_models/user.model';
 import {UserConnectionModel} from '../_models/user-connection.model';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import ProxyFile from '../../proxy.conf.json';
+import {BaseService} from './base.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService {
+export class AuthenticationService extends BaseService {
   private tempToken: TokenModel;
   USER_CONNECTION = 'userConnection';
   BASIC_AUTH_PASSWORD = 'Basic dGVzdDprb2JpbmVz';
@@ -25,7 +25,7 @@ export class AuthenticationService {
   }
 
   constructor(private http: HttpClient, private router: Router) {
-    console.log('Proxing external calls to: ' + ProxyFile['/'].target);
+    super();
   }
 
   getAndSetAccessToken(loginData): Observable<TokenModel> {
@@ -35,8 +35,9 @@ export class AuthenticationService {
         Authorization: this.BASIC_AUTH_PASSWORD,
       }),
     };
+    console.log(this.BE_URL);
     const body = 'username=' + loginData.username + '&password=' + loginData.password + '&grant_type=' + 'password';
-    return this.http.post<TokenModel>('/oauth/token', body, httpOptions);
+    return this.http.post<TokenModel>(this.BE_URL + '/oauth/token', body, httpOptions);
   }
 
   authenticate(token: TokenModel): Observable<UserDetailsModel> {
@@ -45,7 +46,7 @@ export class AuthenticationService {
         Authorization: token.token_type + ' ' + token.access_token,
       }),
     };
-    return this.http.get<UserDetailsModel>('/api/v1/user/authenticate', httpOptions)
+    return this.http.get<UserDetailsModel>(this.BE_URL + '/api/v1/user/authenticate', httpOptions)
       .pipe(
         tap((details) => {
           token.timestamp = Date.now();
@@ -64,7 +65,7 @@ export class AuthenticationService {
     const body =
       'grant_type=refresh_token&refresh_token=' + token.refresh_token;
     this.http
-      .post<TokenModel>('/oauth/token', body, httpOptions)
+      .post<TokenModel>(this.BE_URL + '/oauth/token', body, httpOptions)
       .subscribe(
         (data) => this.refreshUserConnectionDetails(token),
         (error) =>
