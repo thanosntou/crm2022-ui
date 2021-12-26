@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  backendBaseUrl: 'test'
+  backendBaseUrl: 'https://crm2022-test.herokuapp.com'
 };
