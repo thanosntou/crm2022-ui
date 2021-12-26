@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku": "ng build --configuration=testing"
+    "heroku-postbuild": "ng build --configuration=testing"
   },
   "engines": {
     "node": "16.13.1",
