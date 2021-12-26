@@ -107,8 +107,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "crm2022-ui:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "browserTarget": "crm2022-ui:build"
           },
           "configurations": {
             "development": {

@@ -7,7 +7,6 @@ import {UserModel} from '../_models/user.model';
 import {UserConnectionModel} from '../_models/user-connection.model';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import ProxyFile from '../../proxy.conf.json';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -25,7 +24,6 @@ export class AuthenticationService {
   }
 
   constructor(private http: HttpClient, private router: Router) {
-    console.log('Proxing external calls to: ' + ProxyFile['/'].target);
   }
 
   getAndSetAccessToken(loginData): Observable<TokenModel> {
