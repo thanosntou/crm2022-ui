@@ -1,4 +1,4 @@
-<div class="container-fluid" id="sidenavbar">
+<div class="container" id="sidenavbar">
   <br>
   <div class="row">
     <h5>
@@ -12,20 +12,22 @@
     </button>
   </div>
   <hr id="hr1">
-  <div class="row nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
-    <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/contacts" role="button">
-      <fa-icon [icon]="faContacts"></fa-icon>
-      Contacts</a>
-    <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/imports" role="button">
-      <fa-icon [icon]="faImports"></fa-icon>
-      Imports</a>
-    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/exports" role="button">
-      <fa-icon [icon]="faExports"></fa-icon>
-      Exports</a>
-    <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/emails" role="button">
-      <fa-icon [icon]="faEmails"></fa-icon>
-      Emails</a>
-    <br>
+  <div class="container-fluid">
+    <div class="row nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
+      <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/contacts" role="button">
+        <fa-icon [icon]="faContacts"></fa-icon>
+        Contacts</a>
+      <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/imports" role="button">
+        <fa-icon [icon]="faImports"></fa-icon>
+        Imports</a>
+      <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/exports" role="button">
+        <fa-icon [icon]="faExports"></fa-icon>
+        Exports</a>
+      <a class="nav-link" *ngIf="isAdmin || isRoot" routerLinkActive="active" routerLink="/emails" role="button">
+        <fa-icon [icon]="faEmails"></fa-icon>
+        Emails</a>
+      <br>
+    </div>
   </div>
 </div>
 
