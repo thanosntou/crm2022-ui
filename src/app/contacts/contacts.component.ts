@@ -57,8 +57,9 @@ export class ContactsComponent implements OnInit {
         'company': new FormControl(null, Validators.required),
         'name': new FormControl(null),
         'surname': new FormControl(null),
-        'country': new FormControl(null, Validators.required),
         'website': new FormControl(null),
+        'email': new FormControl(null, Validators.required),
+        'country': new FormControl(null, Validators.required),
         'skype': new FormControl(null),
         'viber': new FormControl(null),
         'whatsApp': new FormControl(null),
@@ -88,8 +89,8 @@ export class ContactsComponent implements OnInit {
       this.newContactForm.get('contactData').get('company').reset();
       this.newContactForm.get('contactData').get('name').reset();
       this.newContactForm.get('contactData').get('surname').reset();
-      this.newContactForm.get('contactData').get('country').reset();
       this.newContactForm.get('contactData').get('website').reset();
+      this.newContactForm.get('contactData').get('email').reset();
       this.newContactForm.get('contactData').get('skype').reset();
       this.newContactForm.get('contactData').get('viber').reset();
       this.newContactForm.get('contactData').get('whatsApp').reset();
