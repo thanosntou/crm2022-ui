@@ -36,7 +36,7 @@ export class ContactsComponent implements OnInit {
   static downloadFile(data: Blob) {
     console.log('here');
     const blob = new Blob([data], {type: 'application/octet-stream'});
-    FileSaver.saveAs(blob, 'temp.xlsx');
+    FileSaver.saveAs(blob, 'Contacts_Export.xlsx');
   }
 
   constructor(private contactService: ContactService, private router: Router) {
@@ -122,7 +122,6 @@ export class ContactsComponent implements OnInit {
     const type = 'DOWNLOAD';
     this.contactService.export(type).subscribe(
       data => {
-        console.log('ela');
         ContactsComponent.downloadFile(data);
       },
       error => console.log('Error downloading the file.', error));
