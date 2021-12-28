@@ -59,6 +59,10 @@
               <input type="text" id="website" [formControlName]="'website'" class="form-control">
             </div>
             <div class="form-group">
+              <label for="email"><strong>Email</strong></label>
+              <input type="email" id="email" [formControlName]="'email'" class="form-control">
+            </div>
+            <div class="form-group">
               <label for="country"><strong>Country *</strong></label>
               <select id="country" [formControlName]="'country'" class="form-control">
                 <option *ngFor="let country of countries" [ngValue]="country.code">{{ country.name }}</option>
@@ -154,6 +158,7 @@
           <th scope="col" (click)="sortByName()">Name</th>
           <th scope="col" (click)="sortBySurname()">Surname</th>
           <th scope="col" (click)="sortByWebsite()">Website</th>
+          <th scope="col" (click)="sortByWebsite()">Email</th>
           <th scope="col" (click)="sortByCountry()">Country</th>
           <th scope="col" (click)="sortBySkype()">Skype</th>
           <th scope="col">Viber</th>
@@ -172,6 +177,7 @@
           <td>{{ contact.name }}</td>
           <td>{{ contact.surname }}</td>
           <td><a *ngIf="contact.website" href="//{{ contact.website }}" target="_blank">{{ contact.website }}</a></td>
+          <td>{{ contact.email }}</td>
           <td><span *ngIf="contact.country" class="flag-icon flag-icon-{{ contact.country.code | lowercase }}"></span>
             {{ contact.country.name }}</td>
           <td>{{ contact.skype }}</td>

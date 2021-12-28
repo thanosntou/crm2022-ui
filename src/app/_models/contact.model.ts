@@ -6,6 +6,7 @@ export interface ContactModel {
   name: string;
   surname: string;
   website: string;
+  email: string;
   country: CountryModel;
   skype: string;
   viber: number;
