@@ -1,44 +1,41 @@
-<div class="row align-items-center" style="min-height: 100vh" id="main">
-  <div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
-      <div formGroupName="loginData">
-        <div class="form-group">
-          <div class="row justify-content-center">
-            <div class="col-sm-2">
-              <strong>Username </strong>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" [formControlName]="'username'" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="row justify-content-center">
-            <div class="col-sm-2">
-              <strong>Password </strong>
-            </div>
-            <div class="col-sm-3">
-              <input type="password" [formControlName]="'password'" class="form-control">
+<div class="container " style="min-height: 100vh; max-height: 100vh">
+  <div class="row align-items-center" style="min-height: 90vh; max-height: 90vh" id="main">
+    <div class="container">
+      <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
+        <div formGroupName="loginData">
+          <div class="form-group">
+            <div class="row justify-content-center">
+              <div class="col col-md-3">
+                <strong>Username </strong>
+                <input type="text" [formControlName]="'username'" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col col-sm-3 align-self-center">
-            <button class="btn btn-primary">
-              <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span> Log In</button>
-          </div>
-        </div>
-
-        <br>
-        <div class="container">
-          <div class="row justify-content-md-center" role="alert" *ngIf="errorMessage">
-            <div class="alert alert-danger" role="alert">
-              <span>{{ errorMessage }}</span>
+          <div class="form-group">
+            <div class="row justify-content-center">
+              <div class="col col-md-3">
+                <strong>Password </strong>
+                <input type="password" [formControlName]="'password'" class="form-control">
+              </div>
             </div>
           </div>
+          <br>
+          <div class="form-group">
+            <div class="row justify-content-center">
+              <div class="col col-md-3">
+                <button class="btn btn-primary">
+                  <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span> Log In</button>
+              </div>
+            </div>
+          </div>
+          <br>
         </div>
-
-      </div>
-    </form>
+      </form>
+    </div>
+  </div>
+  <div class="row justify-content-md-center" role="alert" *ngIf="errorMessage">
+    <div class="alert alert-danger" role="alert">
+      <span>{{ errorMessage }}</span>
+    </div>
   </div>
 </div>
