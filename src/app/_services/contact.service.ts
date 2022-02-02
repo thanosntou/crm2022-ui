@@ -64,6 +64,10 @@ export class ContactService extends BaseService {
     return this.http.delete<void>(this.BE_URL + '/api/v1/contact/' + id);
   }
 
+  deleteAll(): Observable<void> {
+    return this.http.delete<void>(this.BE_URL + '/api/v1/contact');
+  }
+
   getSupportedCountries(): Observable<CountryModel[]> {
     return this.http.get<CountryModel[]>(
       this.BE_URL + '/api/v1/contact/countries'
