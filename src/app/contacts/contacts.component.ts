@@ -14,6 +14,13 @@ import * as FileSaver from 'file-saver';
 })
 export class ContactsComponent implements OnInit {
   contacts: ContactModel[] = [];
+  contactsToShow: ContactModel[] = [];
+  pageCapacity = 20;
+  totalPages: number;
+  totalPagesArray: number[];
+  pageToContactsMap: Map<number, ContactModel[]>;
+  selectedPage: number;
+
   countries: CountryModel[] = [];
   businessTypes: string[] = [];
   newContactForm: FormGroup;
@@ -45,6 +52,7 @@ export class ContactsComponent implements OnInit {
   ngOnInit() {
     this.contactService.getAll().subscribe(response => {
       this.contacts = response;
+      this.calculateContactsTablePages();
     });
     this.contactService.getSupportedCountries().subscribe(response => {
       this.countries = response;
@@ -109,13 +117,16 @@ export class ContactsComponent implements OnInit {
     this.loading = !this.loading;
     this.contactService.importFromFile(this.file).subscribe(
       () => {
-        this.contactService.getAll().subscribe(response => this.contacts = response);
         this.newExcelContactsForm.get('excelContactData').get('file').reset();
         this.loading = false;
         this.myInputVariable.nativeElement.value = '';
         alert('Contacts from excel file imported successfully!');
       },
-      error => console.log(JSON.stringify(error))
+      error => console.log(JSON.stringify(error)),
+      () => this.contactService.getAll().subscribe(
+        response => this.contacts = response,
+        error => console.log(JSON.stringify(error)),
+        () => this.calculateContactsTablePages())
     );
   }
 
@@ -156,13 +167,85 @@ export class ContactsComponent implements OnInit {
 
   onDelete(contact: ContactModel) {
     this.contactService.delete(contact.id).subscribe(
-      () => this.contactService.getAll().subscribe(response => this.contacts = response),
-      error => console.log(JSON.stringify(error))
-    );
+      () => this.contactService.getAll().subscribe(
+        response => this.contactService.getAll().subscribe(
+          contactsResponse => {
+            this.contacts = contactsResponse;
+            this.calculateContactsTablePages();
+          },
+          error => console.log(JSON.stringify(error))),
+        error => console.log(JSON.stringify(error)),
+        () => alert('Contact deleted!')
+      ));
   }
+
+  onDeleteAll() {
+    if (confirm('Are you sure you want to delete all contacts?')) {
+      this.contactService.deleteAll().subscribe(
+        () => {
+          this.contactService.getAll().subscribe(
+            response => {
+              this.contacts = response;
+              this.calculateContactsTablePages();
+            },
+            error => console.log(JSON.stringify(error)));
+        },
+        error => console.log(JSON.stringify(error)),
+        () => alert('All contacts deleted!')
+      );
+    }
+    this.contactsToShow = [];
+  }
+
 
   onSelect(contact: ContactModel) {
     this.router.navigate(['/contact', contact.id]);
+  }
+
+  calculateContactsTablePages() {
+    this.totalPages = 0;
+    this.totalPagesArray = [];
+    this.pageToContactsMap = new Map<number, ContactModel[]>();
+
+    const contactsSize = this.contacts.length;
+    let needs1Extra = false;
+    console.log('contactsSize: ' + contactsSize);
+
+    if (contactsSize > this.pageCapacity) {
+      this.totalPages = Math.floor(this.contacts.length / this.pageCapacity);
+      if ((this.contacts.length % this.pageCapacity) > 0) {
+        needs1Extra = true;
+      }
+    } else if (contactsSize > 0) {
+      this.totalPages = 1;
+    } else {
+      this.contactsToShow = [];
+    }
+    console.log('totalPages: ' + this.totalPages);
+
+    if (this.totalPages > 0) {
+      for (let n = 1; n <= this.totalPages; n++) {
+        this.totalPagesArray.push(n);
+        this.pageToContactsMap.set(n, this.contacts.slice(this.pageCapacity * (n - 1), this.pageCapacity * n));
+      }
+      if ((this.totalPages * this.pageCapacity) < contactsSize) {
+        this.pageToContactsMap.set(this.totalPages + 1, this.contacts.slice(this.totalPages * this.pageCapacity, contactsSize));
+      }
+      this.selectedPage = 1;
+      this.contactsToShow = this.pageToContactsMap.get(1);
+    }
+    if (needs1Extra) {
+      this.totalPages = this.totalPages + 1;
+      this.totalPagesArray.push(this.totalPages);
+    }
+    console.log('totalPages: ' + this.totalPages);
+    console.log('totalPagesArray: ' + this.totalPagesArray);
+  }
+
+  onSelectPage(pageNumber: number) {
+    console.log('selected page: ' + pageNumber);
+    this.selectedPage = pageNumber;
+    this.contactsToShow = this.pageToContactsMap.get(pageNumber);
   }
 
   sortByCompany() {
