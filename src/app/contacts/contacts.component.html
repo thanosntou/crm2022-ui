@@ -34,6 +34,9 @@
             <b>New Email</b>
           </button>
         </div>
+        <div class="col col-md-2">
+          <b>Search</b><input (input)="onSearchInput()" [formControlName]="'username'" type="text" class="form-control" id="searchInput" placeholder="Company">
+        </div>
       </div>
     </div>
 

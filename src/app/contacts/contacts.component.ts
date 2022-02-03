@@ -246,6 +246,14 @@ export class ContactsComponent implements OnInit {
     this.contactsToShow = this.pageToContactsMap.get(pageNumber);
   }
 
+  onSearchInput() {
+    const inputValue = (<HTMLInputElement>document.getElementById('searchInput')).value;
+    this.contactService.search(inputValue).subscribe(response => {
+      this.contacts = response;
+      this.calculateContactsTablePages();
+    });
+  }
+
   sortByCompany() {
     if (this.sortByCompanyIcon === faSortAlphaDown) {
       this.sortByCompanyIcon = faSortAlphaUp;
