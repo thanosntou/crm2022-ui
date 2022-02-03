@@ -53,6 +53,10 @@ export class ContactService extends BaseService {
     });
   }
 
+  search(company: string): Observable<ContactModel[]> {
+    return this.http.get<ContactModel[]>(this.BE_URL + '/api/v1/contact/search?company=' + company);
+  }
+
   getAll(): Observable<ContactModel[]> {
     return this.http.get<ContactModel[]>(this.BE_URL + '/api/v1/contact');
   }
