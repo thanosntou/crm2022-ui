@@ -86,6 +86,7 @@ export class ContactsComponent implements OnInit {
       'emailData': new FormGroup({
         'subject': new FormControl(null),
         'content': new FormControl(null),
+        'businessTypeForm': new FormControl(null, Validators.required)
       })
     });
   }
@@ -158,6 +159,7 @@ export class ContactsComponent implements OnInit {
         () => {
           this.newEmailForm.get('emailData').get('subject').reset();
           this.newEmailForm.get('emailData').get('content').reset();
+          this.newEmailForm.get('emailData').get('businessType').reset();
           alert('Email sent!');
         },
         error => console.log(JSON.stringify(error))
@@ -174,8 +176,7 @@ export class ContactsComponent implements OnInit {
             this.calculateContactsTablePages();
           },
           error => console.log(JSON.stringify(error))),
-        error => console.log(JSON.stringify(error)),
-        () => alert('Contact deleted!')
+        error => console.log(JSON.stringify(error))
       ));
   }
 
@@ -209,7 +210,6 @@ export class ContactsComponent implements OnInit {
 
     const contactsSize = this.contacts.length;
     let needs1Extra = false;
-    console.log('contactsSize: ' + contactsSize);
 
     if (contactsSize > this.pageCapacity) {
       this.totalPages = Math.floor(this.contacts.length / this.pageCapacity);
@@ -221,7 +221,6 @@ export class ContactsComponent implements OnInit {
     } else {
       this.contactsToShow = [];
     }
-    console.log('totalPages: ' + this.totalPages);
 
     if (this.totalPages > 0) {
       for (let n = 1; n <= this.totalPages; n++) {
@@ -243,7 +242,6 @@ export class ContactsComponent implements OnInit {
   }
 
   onSelectPage(pageNumber: number) {
-    console.log('selected page: ' + pageNumber);
     this.selectedPage = pageNumber;
     this.contactsToShow = this.pageToContactsMap.get(pageNumber);
   }
