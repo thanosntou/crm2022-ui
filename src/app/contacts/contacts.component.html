@@ -128,13 +128,22 @@
         <form [formGroup]="newEmailForm" (ngSubmit)="onSendEmail()">
           <div formGroupName="emailData">
             <div class="form-group">
-              <label for="subject"><strong>Subject</strong></label>
-              <input type="text" id="subject" [formControlName]="'subject'" class="form-control">
+              <label for="businessTypeForm"><strong>Business Type</strong></label>
+              <select style="width: 60vh" id="businessTypeForm" [formControlName]="'businessTypeForm'" class="form-control">
+                <option *ngFor="let businessType of businessTypes" [ngValue]="businessType">{{ businessType }}</option>
+              </select>
             </div>
+            <br>
             <div class="form-group">
-              <label for="content"><strong>Content</strong></label>
-              <input type="text" id="content" [formControlName]="'content'" class="form-control">
+              <label for="subject"><strong>Subject</strong></label>
+              <input style="width: 60vh" type="text" id="subject" [formControlName]="'subject'" class="form-control">
             </div>
+            <br>
+            <div class="form-group" >
+<!--              <label for="content"><strong>Content</strong></label>-->
+              <textarea style="height: 30vh" id="content" [formControlName]="'content'" class="form-control"></textarea>
+            </div>
+            <br>
             <div>
               <div class="form-group">
                 <button class="btn-sm btn-success" type="submit" [disabled]="!newEmailForm.valid">Send</button>

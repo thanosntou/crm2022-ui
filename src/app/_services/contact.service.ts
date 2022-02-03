@@ -49,6 +49,7 @@ export class ContactService extends BaseService {
       all: true,
       subject: form.subject,
       content: form.content,
+      businessType: form.businessTypeForm,
     });
   }
 
