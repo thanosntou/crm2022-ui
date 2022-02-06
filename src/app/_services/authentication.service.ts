@@ -28,14 +28,13 @@ export class AuthenticationService extends BaseService {
     super();
   }
 
-  getAndSetAccessToken(loginData): Observable<TokenModel> {
+  getAccessToken(loginData): Observable<TokenModel> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': this.AUTH_CONTENT_TYPE,
         Authorization: this.BASIC_AUTH_PASSWORD,
       }),
     };
-    console.log(this.BE_URL);
     const body = 'username=' + loginData.username + '&password=' + loginData.password + '&grant_type=' + 'password';
     return this.http.post<TokenModel>(this.BE_URL + '/oauth/token', body, httpOptions);
   }
