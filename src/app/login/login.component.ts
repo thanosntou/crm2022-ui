@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   onLogIn() {
     this.isLoading = true;
     const loginData = this.loginForm.get('loginData').value;
-    this.authService.getAndSetAccessToken(loginData).subscribe(
+    this.authService.getAccessToken(loginData).subscribe(
       (token) => {
         this.loginForm.get('loginData').get('username').reset();
         this.loginForm.get('loginData').get('password').reset();
