@@ -179,6 +179,7 @@
           <th scope="col" (click)="sortByLinkedIn()">LinkedIn</th>
           <th scope="col" (click)="sortByBusinessType()">BusinessType</th>
           <th scope="col">Comments</th>
+          <th scope="col"></th>
           <th scope="col"><button class="btn btn-outline-danger btn-sm" (click)="onDeleteAll()">Delete All</button></th>
         </tr>
         </thead>
@@ -199,6 +200,9 @@
           <td>{{ contact.linkedIn }}</td>
           <td>{{ contact.businessType }}</td>
           <td>{{ contact.comments }}</td>
+          <td>
+            <button class="btn btn-outline-secondary btn-sm" (click)="onEdit(contact)">Edit</button>
+          </td>
           <td>
             <button class="btn btn-outline-danger btn-sm" (click)="onDelete(contact)">Delete</button>
           </td>

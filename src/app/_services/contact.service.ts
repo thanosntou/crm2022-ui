@@ -17,6 +17,10 @@ export class ContactService extends BaseService {
     return this.http.post<ContactModel>(this.BE_URL + '/api/v1/contact', form);
   }
 
+  update(id: number, contact: ContactModel): Observable<ContactModel> {
+    return this.http.post<ContactModel>(this.BE_URL + '/api/v1/contact/' + id, JSON.stringify(contact));
+  }
+
   importFromFile(file: any) {
     const httpOptions = {
       headers: new HttpHeaders({
