@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ContactModel} from '../_models/contact.model';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ContactService} from '../_services/contact.service';
 import {faSortAlphaDown, faSortAlphaUp} from '@fortawesome/free-solid-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -46,7 +46,7 @@ export class ContactsComponent implements OnInit {
     FileSaver.saveAs(blob, 'Contacts_Export.xlsx');
   }
 
-  constructor(private contactService: ContactService, private router: Router) {
+  constructor(private contactService: ContactService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -165,6 +165,10 @@ export class ContactsComponent implements OnInit {
         error => console.log(JSON.stringify(error))
       );
     }
+  }
+
+  onEdit(contact: ContactModel) {
+    this.router.navigate([contact.id], {relativeTo: this.route});
   }
 
   onDelete(contact: ContactModel) {

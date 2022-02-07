@@ -1,0 +1,130 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Edit Contact</h3>
+    <br>
+    <div class="container-fluid">
+      <form [formGroup]="updateContactForm" (ngSubmit)="onUpdateContact()">
+        <div [formGroupName]="'contactData'">
+          <div class="form-group">
+            <label for="company"><strong>Company</strong></label>
+            <input type="text" id="company" [formControlName]="'company'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="name"><strong>Name</strong></label>
+            <input type="text" id="name" [formControlName]="'name'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="surname"><strong>Surname</strong></label>
+            <input type="text" id="surname" [formControlName]="'surname'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="website"><strong>Website</strong></label>
+            <input type="text" id="website" [formControlName]="'website'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="email"><strong>Email</strong></label>
+            <input type="email" id="email" [formControlName]="'email'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="country"><strong>Country</strong></label>
+            <select id="country" [formControlName]="'country'" class="form-control">
+              <option *ngFor="let country of countries"
+              [selected]="contact.country.code == country.code">{{ country.name }}</option>
+            </select>
+<!--            [selected]="'country == contact.country'"-->
+          </div>
+          <div class="form-group">
+            <label for="skype"><strong>Skype</strong></label>
+            <input type="text" id="skype" [formControlName]="'skype'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="viber"><strong>Viber</strong></label>
+            <input type="number" id="viber" [formControlName]="'viber'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="whatsApp"><strong>WhatsApp</strong></label>
+            <input type="number" id="whatsApp" [formControlName]="'whatsApp'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="weChat"><strong>WeChat</strong></label>
+            <input type="text" id="weChat" [formControlName]="'weChat'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="linkedIn"><strong>LinkedIn</strong></label>
+            <input type="text" id="linkedIn" [formControlName]="'linkedIn'" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="businessType"><strong>BusinessType</strong></label>
+            <select id="businessType" [formControlName]="'businessType'" class="form-control">
+              <option *ngFor="let businessType of businessTypes" [ngValue]="businessType">{{ businessType }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="comments"><strong>Comments</strong></label>
+            <input type="text" id="comments" [formControlName]="'comments'" class="form-control">
+          </div>
+          <div class="form-group">
+            <button class="btn-sm btn-success" type="submit" [disabled]="!updateContactForm.valid">Save</button>
+          </div>
+          <!--          <h4><strong>Tags</strong></h4>-->
+          <!--          <div id="assignedTags2" class="row">-->
+          <!--            <h4><span class="badge badge-info" *ngFor="let tag of contact.tags" (click)="onRemoveMemoryTag(tag)">{{ '#' + tag.name }}</span></h4>-->
+          <!--          </div>-->
+          <!--          <div id="availableTags2" class="row">-->
+          <!--            <h4><span class="badge badge-light" *ngFor="let tag of availableTags" (click)="onAddMemoryTag(tag)">{{ '#' + tag.name }}</span></h4>-->
+          <!--          </div>-->
+          <!--          <br>-->
+          <!--          <h4><strong>Persons</strong></h4>-->
+          <!--          <div id="assignedPersons2" class="row">-->
+          <!--            <h4><span class="badge badge-info" *ngFor="let person of contact.persons" (click)="onRemoveMemoryPerson(person)">{{ person.lastName }}</span></h4>-->
+          <!--          </div>-->
+          <!--          <div id="availablePersons2" class="row">-->
+          <!--            <h4><span class="badge badge-light" *ngFor="let person of availablePersons" (click)="onAddMemoryPerson(person)">{{ person.lastName }}</span></h4>-->
+          <!--          </div>-->
+          <!--          <br>-->
+          <!--          <div class="row">-->
+          <!--            <div class="col-sm-6">-->
+          <!--              <div class="form-group">-->
+          <!--                <label for="year"><strong>Year</strong></label>-->
+          <!--                <select id="year" [formControlName]="'year'" class="form-control">-->
+          <!--                  <option *ngFor="let year of availableYears" [ngValue]="year">{{ year }}</option>-->
+          <!--                </select>-->
+          <!--                <span class="help-block" *ngIf="!updateMemoryForm.get('memoryData.year').valid && updateMemoryForm.get('memoryData.year').touched">Select the year of the contact!</span>-->
+          <!--              </div>-->
+          <!--              <div class="form-group">-->
+          <!--                <label for="month"><strong>Month</strong></label>-->
+          <!--                <select id="month" [formControlName]="'month'" class="form-control">-->
+          <!--                  <option *ngFor="let month of monthService.months" [ngValue]="monthService.monthToValue[month]">{{ monthService.monthToValue[month] + '. ' + month }}</option>-->
+          <!--                </select>-->
+          <!--                <span class="help-block" *ngIf="!updateMemoryForm.get('memoryData.month').valid && updateMemoryForm.get('memoryData.month').touched">Select the month of the contact!</span>-->
+          <!--              </div>-->
+          <!--              <div class="form-group">-->
+          <!--                <label for="days"><strong>Day</strong></label>-->
+          <!--                <select id="days" [formControlName]="'day'" class="form-control">-->
+          <!--                  <option *ngFor="let day of dayService.monthDays" [ngValue]="day">{{ day }}</option>-->
+          <!--                </select>-->
+          <!--                <span class="help-block" *ngIf="!updateMemoryForm.get('memoryData.day').valid && updateMemoryForm.get('memoryData.day').touched">Select the day of the contact!</span>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--          <div class="row">-->
+          <!--            <div class="col-sm-12">-->
+          <!--              <div class="form-group">-->
+          <!--                <label for="details"><strong>Details</strong></label>-->
+          <!--                <textarea id="details" [formControlName]="'details'" rows="4" class="form-control"></textarea>-->
+          <!--                <span class="help-block" *ngIf="!updateContactForm.get('memoryData.details').valid && updateContactForm.get('memoryData.details').touched">Details must not be empty!</span>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--          <div class="row">-->
+          <!--            <div class="col-sm-12">-->
+          <!--              <div class="form-group">-->
+          <!--                <button class="btn btn-success" type="submit" [disabled]="!updateContactForm.valid">Update</button>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

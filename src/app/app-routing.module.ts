@@ -18,27 +18,35 @@ import {AdminOrRootGuard} from './_guards/admin-or-root-guard.service';
 import {ImportsComponent} from './imports/imports.component';
 import {ExportsComponent} from './exports/exports.component';
 import {EmailsComponent} from './emails/emails.component';
+import {EditContactComponent} from './contacts/edit-contact/edit-contact.component';
+import {ContactResolverService} from './_resolvers/contact-resolver.service';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: '', canActivate: [AuthGuard], component: AppInComponent, children: [
-      { path: 'settings', children: [
-        { path: 'root', canActivate: [RootGuard], component: RootSettingsComponent },
-        { path: 'admin', canActivate: [AdminGuard], component: AdminSettingsComponent }]},
-      { path: 'users', canActivate: [AdminGuard], component: UserListComponent },
-      { path: 'contacts', canActivate: [AdminOrRootGuard], component: ContactsComponent },
-      { path: 'imports', canActivate: [AdminOrRootGuard], component: ImportsComponent },
-      { path: 'exports', canActivate: [RootGuard], component: ExportsComponent },
-      { path: 'emails', canActivate: [AdminOrRootGuard], component: EmailsComponent },
-      { path: 'root', canActivate: [RootGuard], children: [
-          { path: 'tenants', canActivate: [RootGuard], component: RootUsersComponent},
-        ]},
-      { path: 'users/:id', canActivate: [AdminGuard], component: UserComponent },
-      { path: 'logins', canActivate: [AdminGuard], component: LoginListComponent },
+  {path: 'login', component: LoginComponent},
+  {
+    path: '', canActivate: [AuthGuard], component: AppInComponent, children: [
+      {
+        path: 'settings', children: [
+          {path: 'root', canActivate: [RootGuard], component: RootSettingsComponent},
+          {path: 'admin', canActivate: [AdminGuard], component: AdminSettingsComponent}]
+      },
+      {path: 'users', canActivate: [AdminGuard], component: UserListComponent},
+      {path: 'contacts', canActivate: [AdminOrRootGuard], component: ContactsComponent},
+      {path: 'contacts/:id', canActivate: [AdminOrRootGuard], component: EditContactComponent, resolve: {contact: ContactResolverService} },
+      {path: 'imports', canActivate: [AdminOrRootGuard], component: ImportsComponent},
+      {path: 'exports', canActivate: [RootGuard], component: ExportsComponent},
+      {path: 'emails', canActivate: [AdminOrRootGuard], component: EmailsComponent},
+      {
+        path: 'root', canActivate: [RootGuard], children: [
+          {path: 'tenants', canActivate: [RootGuard], component: RootUsersComponent},
+        ]
+      },
+      {path: 'users/:id', canActivate: [AdminGuard], component: UserComponent},
+      {path: 'logins', canActivate: [AdminGuard], component: LoginListComponent},
     ]
   },
-  { path: 'not-found', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '/not-found' }
+  {path: 'not-found', component: PageNotFoundComponent},
+  {path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
@@ -47,4 +55,5 @@ const appRoutes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
