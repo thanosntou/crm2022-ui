@@ -201,10 +201,10 @@
           <td>{{ contact.businessType }}</td>
           <td>{{ contact.comments }}</td>
           <td>
-            <button class="btn btn-outline-secondary btn-sm" (click)="onEdit(contact)">Edit</button>
+            <button class="btn btn-outline-secondary btn-sm" (click)="onEdit(contact)"><fa-icon [icon]="editContactIcon"></fa-icon></button>
           </td>
           <td>
-            <button class="btn btn-outline-danger btn-sm" (click)="onDelete(contact)">Delete</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="onDelete(contact)"><fa-icon [icon]="deleteContactIcon"></fa-icon></button>
           </td>
         </tr>
         </tbody>
