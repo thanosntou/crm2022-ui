@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ContactModel} from '../_models/contact.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ContactService} from '../_services/contact.service';
-import {faSortAlphaDown, faSortAlphaUp} from '@fortawesome/free-solid-svg-icons';
+import {faEdit, faSortAlphaDown, faSortAlphaUp, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CountryModel} from '../_models/country.model';
 import * as FileSaver from 'file-saver';
@@ -28,6 +28,8 @@ export class ContactsComponent implements OnInit {
   newEmailForm: FormGroup;
   file: File = null;
   loading = false;
+  editContactIcon = faEdit;
+  deleteContactIcon = faTrashAlt;
   sortByCompanyIcon = faSortAlphaDown;
   sortByNameIcon = faSortAlphaDown;
   sortBySurnameIcon = faSortAlphaDown;

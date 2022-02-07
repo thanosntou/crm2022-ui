@@ -4,6 +4,7 @@ import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ContactModel} from '../../_models/contact.model';
 import {ContactService} from '../../_services/contact.service';
 import {CountryModel} from '../../_models/country.model';
+import {faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-contact',
