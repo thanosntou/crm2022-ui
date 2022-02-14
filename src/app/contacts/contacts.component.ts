@@ -6,6 +6,7 @@ import {faEdit, faSortAlphaDown, faSortAlphaUp, faTrashAlt} from '@fortawesome/f
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CountryModel} from '../_models/country.model';
 import * as FileSaver from 'file-saver';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
   selector: 'app-contacts',
@@ -20,6 +21,7 @@ export class ContactsComponent implements OnInit {
   totalPagesArray: number[];
   pageToContactsMap: Map<number, ContactModel[]>;
   selectedPage: number;
+  isRoot = false;
 
   countries: CountryModel[] = [];
   businessTypes: string[] = [];
@@ -48,7 +50,11 @@ export class ContactsComponent implements OnInit {
     FileSaver.saveAs(blob, 'Contacts_Export.xlsx');
   }
 
-  constructor(private contactService: ContactService, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private contactService: ContactService,
+    private authService: AuthenticationService,
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -61,6 +67,11 @@ export class ContactsComponent implements OnInit {
     });
     this.contactService.getSupportedBusinessTypes().subscribe(response => {
       this.businessTypes = response;
+    });
+    this.authService.findUserRoles().forEach(auth => {
+      if (auth.role === 'ROOT') {
+        this.isRoot = true;
+      }
     });
     this.newContactForm = new FormGroup({
       'contactData': new FormGroup({

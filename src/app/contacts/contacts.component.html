@@ -180,7 +180,7 @@
           <th scope="col" (click)="sortByBusinessType()">BusinessType</th>
           <th scope="col">Comments</th>
           <th scope="col"></th>
-          <th scope="col"><button class="btn btn-outline-danger btn-sm" (click)="onDeleteAll()">Delete All</button></th>
+          <th scope="col"><button *ngIf="isRoot" class="btn btn-outline-danger btn-sm" (click)="onDeleteAll()">Delete All</button></th>
         </tr>
         </thead>
         <tbody>
